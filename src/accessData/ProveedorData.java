@@ -62,6 +62,8 @@ public class ProveedorData {
             
             if(exito == 1){
                 JOptionPane.showMessageDialog(null, "Proveedor modificado");
+            }else {
+                JOptionPane.showMessageDialog(null, "No se encontro el proveedor");
             }
             
         } catch (SQLException ex) {
@@ -69,4 +71,47 @@ public class ProveedorData {
         }
     }
     
+    public void eliminarProveedor(int id) {
+        String sql = "UPDATE proveedor SET estado = 0 WHERE idProveedor = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            int exito = ps.executeUpdate();
+
+            if (exito == 1) {
+                JOptionPane.showMessageDialog(null, "Proveedor Eliminado");
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla proveedor.");
+        }
+    }
+    
+    public Proveedor buscarProveedorPorId(int id) {
+        String sql = "SELECT razonSocial, domicilio, telefono FROM proveedor WHERE idProveedor = ? AND estado = 1";
+        Proveedor proveedor = null;
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                proveedor = new Proveedor();
+                proveedor.setIdProveedor(id);
+                proveedor.setRazonSocial("razonSocial");
+                proveedor.setTelefono(rs.getInt("telefono"));;
+                
+                proveedor.setEstado(true);
+                
+            } else {
+                JOptionPane.showMessageDialog(null, "No existe el proveedor con esa id.");
+            }
+
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla proveedor.");
+        }
+        return proveedor;
+    }
 }
