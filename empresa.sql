@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-11-2023 a las 22:46:38
+-- Tiempo de generación: 02-11-2023 a las 23:10:23
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -83,7 +83,7 @@ CREATE TABLE `proveedor` (
 --
 
 INSERT INTO `proveedor` (`idProveedor`, `razonSocial`, `domicilio`, `telefono`, `estado`) VALUES
-(1, 'Sanyo Electric', 'Osaka Japon', 123456789, 0),
+(1, 'LG', 'Busan Corea del Sur', 234567891, 0),
 (2, 'Sanyo Electric', 'Osaka Japon', 123456789, 1);
 
 --
