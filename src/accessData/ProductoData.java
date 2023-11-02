@@ -82,11 +82,9 @@ public class ProductoData {
             ps.setString(2, producto.getDescripcion());
             ps.setDouble(3, producto.getPrecioActual());
             ps.setInt(4, producto.getStock());
-                    
-            int exito= ps.executeUpdate();
 
-            
-                
+            int exito = ps.executeUpdate();
+
             if (exito == 1) {
                 JOptionPane.showMessageDialog(null, "Producto modificado.");
             } else {
@@ -97,14 +95,14 @@ public class ProductoData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla producto.");
         }
     }
-    
-    public void eliminarProducto (int id) {
+
+    public void eliminarProducto(int id) {
         String sql = "UPDATE producto SET estado = 0 WHERE idProducto = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, id);                    
-            int exito= ps.executeUpdate();            
-                
+            ps.setInt(1, id);
+            int exito = ps.executeUpdate();
+
             if (exito == 1) {
                 JOptionPane.showMessageDialog(null, "Producto eliminado.");
             }
@@ -112,10 +110,10 @@ public class ProductoData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla producto.");
         }
     }
-    
+
     public List<Producto> listarProductos() {
         String sql = "SELECT idProducto, nombreProducto, descripcion, precioActual, stock, estado"
-        + " FROM producto WHERE 1";
+                + " FROM producto WHERE 1";
         ArrayList<Producto> productos = new ArrayList<>();
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -138,6 +136,6 @@ public class ProductoData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla materia.");
         }
-        return materias;
-    
+        return productos;
+    }
 }
