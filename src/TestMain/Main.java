@@ -19,11 +19,11 @@ public class Main {
         
         
         //ERROOOOOOOOOOOOOOOR 
-        /* ------------ MODIFICAR PROVEEDOR ------------   */
+        /* ------------ MODIFICAR PROVEEDOR ------------  
         Proveedor prov = new Proveedor(1, "LG", "Busan Corea del Sur", 234567891, true);
         ProveedorData provData = new ProveedorData();
         provData.modificarProveedor(prov);
-       
+        */
         
          /* ------------ ELIMINAR PROVEEDOR ------------ 
         Proveedor prov = new Proveedor("Sanyo Electric SA", "Osaka Japon", 123456789, true);
@@ -31,18 +31,27 @@ public class Main {
         provData.eliminarProveedor(1);
          */
          
-         /* ------------ BUSCAR PROVEEDOR POR ID ------------         
+         /* ------------ BUSCAR PROVEEDOR POR ID ------------      
         ProveedorData provData = new ProveedorData();
-        Proveedor provEncontrado = new provData.buscarProveedorPorId(1);
-        */
+        Proveedor provEncontrado = provData.buscarProveedorPorId(2);
+        if(provEncontrado != null){
+            System.out.println("Razon Social: " + provEncontrado.getRazonSocial() + ", Domicilio: " 
+                    + provEncontrado.getDomicilio() + ", Telefono: " + provEncontrado.getTelefono());
+        }           
+         */ 
+         
+        /* ------------ BUSCAR TODOS LOS PROVEEDORES ------------      
+        ProveedorData provData = new ProveedorData();
         
-//        AlumnoData alumData = new AlumnoData();
-//        Alumno alumnoEncontrado = alumData.buscarAlumnoPorId(1); //verificar que este ese id en bd
-//        if (alumnoEncontrado != null) {
-//            System.out.println("Dni: " + alumnoEncontrado.getDni() + " Apellido: " + alumnoEncontrado.getApellido());
-//        }
-         
-         
+        for(Proveedor proveedor:provData.listarProveedor()){
+            System.out.println("");
+            System.out.println("Razon Social: "+ proveedor.getRazonSocial());
+            System.out.println("Domicilio: "+ proveedor.getDomicilio());
+            System.out.println("Telefono: "+ proveedor.getTelefono()); 
+        }
+         */  
+        
+        
     }
 
 }
