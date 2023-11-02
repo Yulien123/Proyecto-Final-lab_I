@@ -17,8 +17,7 @@ public class Main {
         provData.guardarProveedor(prov);
          */
         
-        
-        //ERROOOOOOOOOOOOOOOR 
+         
         /* ------------ MODIFICAR PROVEEDOR ------------  
         Proveedor prov = new Proveedor(1, "LG", "Busan Corea del Sur", 234567891, true);
         ProveedorData provData = new ProveedorData();
@@ -40,7 +39,7 @@ public class Main {
         }           
          */ 
          
-        /* ------------ BUSCAR TODOS LOS PROVEEDORES ------------      
+         /*------------ BUSCAR TODOS LOS PROVEEDORES ------------      */
         ProveedorData provData = new ProveedorData();
         
         for(Proveedor proveedor:provData.listarProveedor()){
@@ -49,7 +48,7 @@ public class Main {
             System.out.println("Domicilio: "+ proveedor.getDomicilio());
             System.out.println("Telefono: "+ proveedor.getTelefono()); 
         }
-         */  
+        
         
         
     }
