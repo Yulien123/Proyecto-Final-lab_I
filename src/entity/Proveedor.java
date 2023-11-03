@@ -23,6 +23,11 @@ public class Proveedor {
         this.domicilio = domicilio;
         this.telefono = telefono;
     }
+    
+    public Proveedor(int idProveedor) {
+    this.idProveedor = idProveedor; 
+}
+
 
     public int getIdProveedor() {
         return idProveedor;
