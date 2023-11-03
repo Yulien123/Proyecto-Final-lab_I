@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-11-2023 a las 23:10:23
+-- Tiempo de generación: 03-11-2023 a las 00:17:45
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -32,7 +32,8 @@ USE `empresa`;
 CREATE TABLE `compra` (
   `idCompra` int(11) NOT NULL,
   `IdProveedor` int(11) NOT NULL,
-  `fecha` date NOT NULL
+  `fecha` date NOT NULL,
+  `estado` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -46,7 +47,8 @@ CREATE TABLE `detallecompra` (
   `cantidad` int(11) NOT NULL,
   `precioCosto` double NOT NULL,
   `idCompra` int(11) NOT NULL,
-  `IdProducto` int(11) NOT NULL
+  `IdProducto` int(11) NOT NULL,
+  `estado` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
