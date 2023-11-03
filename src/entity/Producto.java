@@ -2,7 +2,7 @@ package entity;
 
 public class Producto {
 
-    private int idProdcuto;
+    private int idProducto;
     private String nombreProducto;
     private String descripcion;
     private double precioActual;
@@ -12,8 +12,8 @@ public class Producto {
     public Producto() {
     }
 
-    public Producto(int idProdcuto, String nombreProducto, String descripcion, double precioActual, int stock, boolean estado) {
-        this.idProdcuto = idProdcuto;
+    public Producto(int idProducto, String nombreProducto, String descripcion, double precioActual, int stock, boolean estado) {
+        this.idProducto = idProducto;
         this.nombreProducto = nombreProducto;
         this.descripcion = descripcion;
         this.precioActual = precioActual;

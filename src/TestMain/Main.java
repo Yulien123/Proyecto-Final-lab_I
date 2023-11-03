@@ -1,6 +1,10 @@
 package TestMain;
 
+import accessData.CompraData;
+import accessData.DetalleCData;
 import accessData.ProveedorData;
+import entity.Compra;
+import entity.DetalleCompra;
 import entity.Proveedor;
 
 /**
@@ -39,7 +43,7 @@ public class Main {
         }           
          */ 
          
-         /*------------ BUSCAR TODOS LOS PROVEEDORES ------------      */
+         /*------------ BUSCAR TODOS LOS PROVEEDORES ------------      
         ProveedorData provData = new ProveedorData();
         
         for(Proveedor proveedor:provData.listarProveedor()){
@@ -48,8 +52,17 @@ public class Main {
             System.out.println("Domicilio: "+ proveedor.getDomicilio());
             System.out.println("Telefono: "+ proveedor.getTelefono()); 
         }
-        
-        
+        */
+         /*------------ PRUEBA DE METODO DETALECOMPRADATA ------------   */
+        CompraData comData = new CompraData();
+        Compra com = comData.buscarCompraPorId(1);
+        DetalleCData detCompData = new DetalleCData();
+        detCompData.buscarDetallePorCompra(com).forEach(item->{
+            System.out.println(item.getIdDetalle());
+            System.out.println(item.getCantidad());
+            System.out.println(item.getPrecioCosto());
+            System.out.println(item.getProducto().getNombreProducto());
+        }); //funcion LAMBDA
         
     }
 
