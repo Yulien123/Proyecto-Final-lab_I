@@ -136,10 +136,36 @@ public class CompraData {
             while (rs.next()) {
                 Compra compra = new Compra();
                 compra.setIdCompra(rs.getInt("idCompra"));
-                //Proveedor prov = new Proveedor();
-                //prov.setIdProveedor(rs.getInt("idProveedor"));
-                //compra.setProveedor(prov);
-                compra.setProveedor(new Proveedor(rs.getInt("idProveedor")));
+                Proveedor prov = new Proveedor();
+                prov.setIdProveedor(rs.getInt("idProveedor"));
+                compra.setProveedor(prov);
+                compra.setFecha(rs.getDate("fecha").toLocalDate());
+                compra.setEstado(true);
+
+                compras.add(compra);
+            }
+
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla compra: "+ ex.getMessage());
+        }
+        return compras;
+    }
+     
+     public List<Compra> listarComprasPorFecha() {
+        String sql = "SELECT idCompra, idProveedor, fecha FROM compra WHERE fecha = ?";
+        ArrayList<Compra> compras = new ArrayList<>();
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Compra compra = new Compra();
+                compra.setIdCompra(rs.getInt("idCompra"));
+                Proveedor prov = new Proveedor();
+                prov.setIdProveedor(rs.getInt("idProveedor"));
+                compra.setProveedor(prov);
                 compra.setFecha(rs.getDate("fecha").toLocalDate());
                 compra.setEstado(true);
 
