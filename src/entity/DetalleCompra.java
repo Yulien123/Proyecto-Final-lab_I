@@ -7,17 +7,20 @@ public class DetalleCompra {
     private double precioCosto;
     private Compra compra;
     private Producto producto;
+    private boolean estado;
 
     public DetalleCompra() {
     }
 
-    public DetalleCompra(int idDetalle, int cantidad, double precioCosto, Compra compra, Producto producto) {
+    public DetalleCompra(int idDetalle, int cantidad, double precioCosto, Compra compra, Producto producto, boolean estado) {
         this.idDetalle = idDetalle;
         this.cantidad = cantidad;
         this.precioCosto = precioCosto;
         this.compra = compra;
         this.producto = producto;
+        this.estado = estado;
     }
+
 
     public DetalleCompra(int cantidad, double precioCosto, Compra compra, Producto producto) {
         this.cantidad = cantidad;
