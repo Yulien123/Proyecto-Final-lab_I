@@ -1,12 +1,15 @@
 package accessData;
 
 import entity.Compra;
+import entity.Proveedor;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 
@@ -86,7 +89,7 @@ public class CompraData {
             if (rs.next()) {
                 compra = new Compra();
                 compra.setIdCompra(rs.getInt("idCompra"));
-                compra.setProveedor().(rs.getInt(""));
+                compra.setProveedor(new Proveedor(rs.getInt("idProveedor")));
                 compra.setFecha(rs.getDate("fecha").toLocalDate());
                 compra.setEstado(true);
             } else {
@@ -102,5 +105,28 @@ public class CompraData {
     }
     
     
-    
+     public List<Compra> listarCompras() {
+        String sql = "SELECT idCompra, idProveedor, fecha FROM compra WHERE estado = 1";
+        ArrayList<Compra> compras = new ArrayList<>();
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Compra compra = new Compra();
+                compra.setIdCompra(rs.getInt("idCompra"));
+                compra.setProveedor(new Proveedor(rs.getInt("idProveedor")));
+                compra.setFecha(rs.getDate("fecha").toLocalDate());
+                compra.setEstado(true);
+
+                compras.add(compra);
+            }
+
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla compra.");
+        }
+        return compras;
+    }
 }
