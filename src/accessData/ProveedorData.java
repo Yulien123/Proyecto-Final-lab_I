@@ -140,4 +140,29 @@ public class ProveedorData {
         return proveedores;
     }
     
+   public List<Proveedor> listarProveedorxProducto(int idProducto) {
+        String sql = "SELECT razonSocial, telefono, domicilio, idProveedor"
+                + " FROM proveedor JOIN compra ON (proveedor.idProveedor = compra.IdProveedor)"
+                + " JOIN detallecompra ON (compra.idCompra = detallecompra.idCompra) WHERE IdProducto = ?";
+        ArrayList<Proveedor> proveedores = new ArrayList<>();
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Proveedor proveedor = new Proveedor();
+                proveedor.setIdProveedor(rs.getInt("idProveedor"));
+                proveedor.setRazonSocial("razonSocial");
+                proveedor.setDomicilio("domicilio");
+                proveedor.setTelefono(rs.getInt("telefono"));
+                proveedor.setEstado(true);
+            }
+
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla proveedor.");
+        }
+        return proveedores;
+    }
 }
