@@ -34,8 +34,11 @@ public class DetalleCData {
         DetalleCompra detCompra;
         Producto prod;
         while (rs.next()) {
-            prod = new Producto(rs.getInt("idProducto"),
+            //int idProducto, String nombreProducto, String descripcion, double precioActual, int stock, boolean estado
+            prod = new Producto(
+                    rs.getInt("idProducto"),
                     rs.getString("nombreProducto"),
+                    rs.getString("descripcion"),
                     rs.getDouble("precioActual"),
                     rs.getInt("stock"),
                     rs.getBoolean("estado"));
