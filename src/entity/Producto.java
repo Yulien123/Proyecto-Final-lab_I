@@ -30,11 +30,11 @@ public class Producto {
     }
 
     public int getIdProdcuto() {
-        return idProdcuto;
+        return idProducto;
     }
 
     public void setIdProdcuto(int idProdcuto) {
-        this.idProdcuto = idProdcuto;
+        this.idProducto = idProdcuto;
     }
 
     public String getNombreProducto() {
@@ -79,6 +79,6 @@ public class Producto {
 
     @Override
     public String toString() {
-        return "Producto{" + "idProdcuto=" + idProdcuto + ", nombreProducto=" + nombreProducto + ", descripcion=" + descripcion + ", precioActual=" + precioActual + ", stock=" + stock + ", estado=" + estado + '}';
+        return "Producto{" + "idProdcuto=" + idProducto + ", nombreProducto=" + nombreProducto + ", descripcion=" + descripcion + ", precioActual=" + precioActual + ", stock=" + stock + ", estado=" + estado + '}';
     }
 }
