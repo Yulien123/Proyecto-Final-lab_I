@@ -20,33 +20,35 @@ public class ProductoData {
         con = Conexion.getConexion();
     }
 
-    public void guardarProducto(Producto producto) {
-        String sql = "INSERT INTO producto(nombreProducto, descripcion, precioActual, stock, estado)"
-                + " VALUES(?, ?, ?, ?, ?)";
+   public void guardarProducto(Producto producto) {
+    String sql = "INSERT INTO producto(nombreProducto, descripcion, precioActual, stock, estado)"
+            + " VALUES(?, ?, ?, ?, ?)";
 
-        try {
-            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, producto.getNombreProducto());
-            ps.setString(2, producto.getDescripcion());
-            ps.setDouble(3, producto.getPrecioActual());
-            ps.setInt(4, producto.getStock());
-            ps.setBoolean(5, producto.isEstado());
+    try {
+        PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        ps.setString(1, producto.getNombreProducto());
+        ps.setString(2, producto.getDescripcion());
+        ps.setDouble(3, producto.getPrecioActual());
+        ps.setInt(4, producto.getStock());
+        ps.setBoolean(5, producto.isEstado());
 
-            ResultSet rs = ps.getGeneratedKeys();
+        ps.executeUpdate();
 
-            if (rs.next()) {
-                producto.setIdProdcuto(rs.getInt(1));
-                JOptionPane.showMessageDialog(null, "Materia agregada");
-            }
-            ps.close();
+        ResultSet rs = ps.getGeneratedKeys();
 
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla materia.");
+        if (rs.next()) {
+            producto.setIdProdcuto(rs.getInt(1));
+            JOptionPane.showMessageDialog(null, "Producto agregado");
         }
+        ps.close();
+
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al acceder a la tabla producto.");
     }
+}
 
     public Producto buscarProductoPorId(int id) {
-        String sql = "SELECT * FROM producto WHERE idProducto = ? AND estado = 1";
+        String sql = "SELECT * FROM producto WHERE idProducto = ? AND estado = 1 ";
         Producto producto = null;
         try {
             PreparedStatement ps = con.prepareStatement(sql);
