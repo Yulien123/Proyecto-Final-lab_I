@@ -84,6 +84,7 @@ public class ProductoData {
             ps.setString(2, producto.getDescripcion());
             ps.setDouble(3, producto.getPrecioActual());
             ps.setInt(4, producto.getStock());
+            ps.setInt(5, producto.getIdProdcuto());
 
             int exito = ps.executeUpdate();
 
