@@ -8,6 +8,7 @@ import entity.DetalleCompra;
 import entity.Proveedor;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  *
@@ -17,7 +18,9 @@ public class Main {
 
     public static void main(String[] args) {
 
-        /* ------------ INSERTAR PROVEEDOR ------------ 
+        /*Proveedor*/
+
+ /* ------------ INSERTAR PROVEEDOR ------------ 
         Proveedor prov = new Proveedor("Sanyo Electric", "Osaka Japon", 123456789, true);
         ProveedorData provData = new ProveedorData();
         provData.guardarProveedor(prov);
@@ -50,6 +53,45 @@ public class Main {
             System.out.println("Telefono: "+ proveedor.getTelefono()); 
         }
          */
+ 
+ 
+ 
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        
+ 
+        
+        
+        /*COMPRAS*/
+  /*------------ INSERTAR PROVEEDOR ------------ */
+        ProveedorData ad = new ProveedorData();
+
+        Proveedor prov = ad.buscarProveedorPorId(1);
+        Compra com = new Compra(prov, LocalDate.of(2023, 12, 12));
+        CompraData comData = new CompraData();
+        comData.guardarCompra(com);
+         
+ /* ------------ MODIFICAR PROVEEDOR ------------  
+        Proveedor prov = new Proveedor(1, "LG", "Busan Corea del Sur", 234567891, true);
+        ProveedorData provData = new ProveedorData();
+        provData.modificarProveedor(prov);
+         */
+ /* ------------ ELIMINAR PROVEEDOR ------------ 
+        Proveedor prov = new Proveedor("Sanyo Electric SA", "Osaka Japon", 123456789, true);
+        ProveedorData provData = new ProveedorData();
+        provData.eliminarProveedor(1);
+         */
+ /* ------------ BUSCAR PROVEEDOR POR ID ------------      
+        ProveedorData provData = new ProveedorData();
+        Proveedor provEncontrado = provData.buscarProveedorPorId(2);
+        if(provEncontrado != null){
+            System.out.println("Razon Social: " + provEncontrado.getRazonSocial() + ", Domicilio: " 
+                    + provEncontrado.getDomicilio() + ", Telefono: " + provEncontrado.getTelefono());
+        } 
+                                 
+                                 
+ 
+ 
+ 
  /*------------ PRUEBA DE METODO DETALECOMPRADATA ------------   */
  /* CompraData comData = new CompraData();
         Compra com = comData.buscarCompraPorId(1);
@@ -60,17 +102,23 @@ public class Main {
             System.out.println(item.getPrecioCosto());
             System.out.println(item.getProducto().getNombreProducto());
         }); //funcion LAMBDA*/
-        CompraData comData = new CompraData();
-        Compra com = comData.listarComprasEntreFechas(new Date (2023,11,10),new Date (2023,12,23));
-        DetalleCData detCompData = new DetalleCData();
-        detCompData.buscarDetallePorCompra(com).forEach(item -> {
-            System.out.println(item.getIdDetalle());
-            System.out.println(item.getCantidad());
-            System.out.println(item.getPrecioCosto());
-            System.out.println(item.getProducto().getNombreProducto());
-        });
+ /*----------- PRUEBA DE METODO CompraEntreFechas --------*/
+ /*CompraData comData = new CompraData();
 
+        // Definir las fechas de inicio y fin para la búsqueda
+        Date fechaInicio = java.sql.Date.valueOf(LocalDate.of(2023, 11, 2));
+        Date fechaFin = java.sql.Date.valueOf(LocalDate.of(2023, 12, 23));
+
+        // Llamar al método listarComprasEntreFechas
+        List<Compra> compras = comData.listarComprasEntreFechas(fechaInicio, fechaFin);
+
+        // Iterar sobre la lista de compras y mostrar información
+        for (Compra compra : compras) {
+            System.out.println("ID de Compra: " + compra.getIdCompra());
+            ///Agregar en CompraData un JOIN para RZ de proveedor
+            System.out.println("Nombre Proveedor: " + compra.getProveedor());
+            System.out.println("Fecha de Compra: " + compra.getFecha());
+            System.out.println();
+        };*/
     }
-;
-
 }
