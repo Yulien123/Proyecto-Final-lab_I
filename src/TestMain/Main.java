@@ -56,6 +56,47 @@ public class Main {
  
  
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+              /*PRODUCTO PRUEBAS*/
+         /*----Guardar producto----*/ //FUNCIONA
+//        Producto produ = new Producto("Perfume","Perfumeria",19900,10,true);
+//        ProductoData produData = new ProductoData();
+//        produData.guardarProducto(produ);
+
+ /* ------------ BUSCAR PRODUCTO POR ID ------------   */   //FUNCIONA
+//        ProductoData produData = new ProductoData();
+//        Producto produEncontrado = produData.buscarProductoPorId(1);
+//        System.out.println("Nombre: " + produEncontrado.getNombreProducto() + ", Descripcion: " 
+//                    + produEncontrado.getDescripcion() + ", Precio: " + produEncontrado.getPrecioActual()
+//                    + ", Stock: " + produEncontrado.getStock());
+//        }           
+         
+ 
+/* ------------ MODIFICAR PRODUCTO------------   */ //ERROR AL ACCEDER A LA TABLA
+//        Producto produ = new Producto(2,"Lavandina","limpieza",1000,20,true);
+//        ProductoData produData = new ProductoData();
+//        produData.modificarProducto(produ);
+        
+ /* ------------ ELIMINAR PRODUCTO ------------ *///FUNCIONA
+
+//        Producto produ = new Producto(1,"Televisor", "50pulgadas", 12.346,789, true);
+//        ProductoData produData = new ProductoData();
+//        produData.eliminarProducto(1);
+         
+
+
+ /*------------ Listar TODOS LOS PRODUCTOS ------------     */  //FUNCIONA
+//        ProductoData produData = new ProductoData();
+//        
+//        for(Producto producto:produData.listarProductos()){
+//            System.out.println("");
+//            System.out.println("Nombre "+ producto.getNombreProducto());
+//            System.out.println("Descripcion: "+ producto.getDescripcion());
+//            System.out.println("Precio: "+ producto.getPrecioActual()); 
+//            System.out.println("Stock: "+ producto.getStock());
+//        }
+//        
+                  
+      /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
     
                                               /*COMPRAS*/
         
