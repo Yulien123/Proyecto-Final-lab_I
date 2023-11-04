@@ -2,9 +2,11 @@ package TestMain;
 
 import accessData.CompraData;
 import accessData.DetalleCData;
+import accessData.ProductoData;
 import accessData.ProveedorData;
 import entity.Compra;
 import entity.DetalleCompra;
+import entity.Producto;
 import entity.Proveedor;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -71,11 +73,11 @@ public class Main {
 //        }           
          
  
-/* ------------ MODIFICAR PRODUCTO------------   */ //ERROR AL ACCEDER A LA TABLA
+/* ------------ MODIFICAR PRODUCTO------------   */ //FUNCIONA
 //        Producto produ = new Producto(2,"Lavandina","limpieza",1000,20,true);
 //        ProductoData produData = new ProductoData();
 //        produData.modificarProducto(produ);
-        
+//        
  /* ------------ ELIMINAR PRODUCTO ------------ *///FUNCIONA
 
 //        Producto produ = new Producto(1,"Televisor", "50pulgadas", 12.346,789, true);
