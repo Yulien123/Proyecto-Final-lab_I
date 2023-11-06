@@ -23,7 +23,7 @@ public class CompraData {
 
     public void guardarCompra(Compra com) {
 
-        String sql = "INSERT INTO compra(idProveedor, fecha) VALUES (?,?,?) ";
+        String sql = "INSERT INTO compra(idProveedor, fecha) VALUES (?,?) ";
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
@@ -44,7 +44,7 @@ public class CompraData {
     }
 
     public void modificarCompra(Compra compra) {
-        String sql = "UPDATE alumno SET idProveedor = ?"
+        String sql = "UPDATE compra SET idProveedor = ?"
                 + " WHERE idCompra = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -156,11 +156,12 @@ public class CompraData {
         return compras;
     }
 
-    public List<Compra> listarComprasPorFecha() {
+    public List<Compra> listarComprasPorFecha(Date f1) {
         String sql = "SELECT idCompra, idProveedor, fecha FROM compra WHERE fecha = ?";
         ArrayList<Compra> compras = new ArrayList<>();
         try {
             PreparedStatement ps = con.prepareStatement(sql);
+            ps.setDate(1, f1);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -182,14 +183,17 @@ public class CompraData {
         }
         return compras;
     }
-
+    ///Agregar en CompraData un JOIN para RZ de proveedor
     public List<Compra> listarComprasEntreFechas(Date f1, Date f2) {
+        
         String sql = "SELECT *"
                 + " FROM compra"
                 + " WHERE fecha >= ? AND fecha <= ?"; // f1> <f2
         ArrayList<Compra> compras = new ArrayList<>();
         try {
             PreparedStatement ps = con.prepareStatement(sql);
+            ps.setDate(1, f1);
+             ps.setDate(2, f2);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {

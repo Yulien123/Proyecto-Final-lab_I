@@ -153,7 +153,7 @@ public class Main {
         
         
         //-----------------  Listar  Compras  ---------------               FUNCIONA           
-      /*  ProveedorData ad = new ProveedorData();
+        ProveedorData ad = new ProveedorData();
         CompraData comData = new CompraData();
         List<Compra> compras = comData.listarCompras();
         for (Compra compra : compras) {
@@ -162,7 +162,7 @@ public class Main {
             System.out.println("Nombre Proveedor: " + ad.buscarProveedorPorId(compra.getProveedor().getIdProveedor()).getRazonSocial());
             System.out.println("Fecha de Compra: " + compra.getFecha());
             System.out.println();
-        };*/
+        };
         
         
         /*-----------------  Listar CompraPORFechas  ---------------*/ //           FUNCIONA incluye bool 0

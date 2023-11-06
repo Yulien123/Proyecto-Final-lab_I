@@ -6,6 +6,10 @@
 
 package viewsFrames;
 
+import accessData.ProductoData;
+import entity.Producto;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Usuario
@@ -32,14 +36,14 @@ public class RegistroProductos extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnAgregar = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
         jTCodigo = new javax.swing.JTextField();
         jTNombre = new javax.swing.JTextField();
         jTDescripcion = new javax.swing.JTextField();
         jTPrecio = new javax.swing.JTextField();
         jTCantidad = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
         jBSalir = new javax.swing.JButton();
 
         jLabel1.setText("Registro de Productos");
@@ -54,11 +58,16 @@ public class RegistroProductos extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Cantidad:");
 
-        jButton1.setText("Agregar");
+        btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Modificar");
+        btnModificar.setText("Modificar");
 
-        jButton3.setText("Buscar");
+        btnBuscar.setText("Buscar");
 
         jBSalir.setText("Salir");
         jBSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -75,9 +84,9 @@ public class RegistroProductos extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(92, 92, 92)
-                        .addComponent(jButton1)
+                        .addComponent(btnAgregar)
                         .addGap(65, 65, 65)
-                        .addComponent(jButton2)
+                        .addComponent(btnModificar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jBSalir))
                     .addGroup(layout.createSequentialGroup()
@@ -93,7 +102,7 @@ public class RegistroProductos extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jTCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton3))
+                                .addComponent(btnBuscar))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jTNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -112,13 +121,13 @@ public class RegistroProductos extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(4, 4, 4)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3))))
+                            .addComponent(btnBuscar)))
+                    .addComponent(jLabel2))
                 .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -137,8 +146,8 @@ public class RegistroProductos extends javax.swing.JInternalFrame {
                     .addComponent(jTCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
+                    .addComponent(btnAgregar)
+                    .addComponent(btnModificar)
                     .addComponent(jBSalir))
                 .addGap(26, 26, 26))
         );
@@ -151,12 +160,36 @@ public class RegistroProductos extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_jBSalirActionPerformed
 
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        // TODO add your handling code here:
+        ProductoData ad = new ProductoData();
+        Producto prod = new Producto();
+        try{
+        prod.setDescripcion(jTDescripcion.getText());
+        prod.setNombreProducto(jTNombre.getText());
+        prod.setPrecioActual(Integer.parseInt(jTPrecio.getText()));
+        prod.setStock(Integer.parseInt(jTCantidad.getText()));
+        ad.guardarProducto(prod);
+        
+        
+        // FALTA VERIFICAR QUE NO ESTE EL MISMO PRODUCTO EN BASE DE DATOS
+        
+        
+        if(jTNombre.getText().isEmpty() || jTCantidad.getText().isEmpty() || jTPrecio.getText().isEmpty() || jTDescripcion.getText().isEmpty()){
+             JOptionPane.showMessageDialog(this, "No pueden haber campos vacios");
+        }
+                
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Debe ingresar un número");
+        }
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnModificar;
     private javax.swing.JButton jBSalir;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
