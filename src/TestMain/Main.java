@@ -55,38 +55,30 @@ public class Main {
             System.out.println("Telefono: "+ proveedor.getTelefono()); 
         }
          */
- 
- 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-              /*PRODUCTO PRUEBAS*/
-         /*----Guardar producto----*/ //FUNCIONA
+        /*PRODUCTO PRUEBAS*/
+ /*----Guardar producto----*/ //FUNCIONA
 //        Producto produ = new Producto("Perfume","Perfumeria",19900,10,true);
 //        ProductoData produData = new ProductoData();
 //        produData.guardarProducto(produ);
 
- /* ------------ BUSCAR PRODUCTO POR ID ------------   */   //FUNCIONA
+        /* ------------ BUSCAR PRODUCTO POR ID ------------   */   //FUNCIONA
 //        ProductoData produData = new ProductoData();
 //        Producto produEncontrado = produData.buscarProductoPorId(1);
 //        System.out.println("Nombre: " + produEncontrado.getNombreProducto() + ", Descripcion: " 
 //                    + produEncontrado.getDescripcion() + ", Precio: " + produEncontrado.getPrecioActual()
 //                    + ", Stock: " + produEncontrado.getStock());
 //        }           
-         
- 
-/* ------------ MODIFICAR PRODUCTO------------   */ //FUNCIONA
+        /* ------------ MODIFICAR PRODUCTO------------   */ //FUNCIONA
 //        Producto produ = new Producto(2,"Lavandina","limpieza",1000,20,true);
 //        ProductoData produData = new ProductoData();
 //        produData.modificarProducto(produ);
 //        
- /* ------------ ELIMINAR PRODUCTO ------------ *///FUNCIONA
-
+        /* ------------ ELIMINAR PRODUCTO ------------ *///FUNCIONA
 //        Producto produ = new Producto(1,"Televisor", "50pulgadas", 12.346,789, true);
 //        ProductoData produData = new ProductoData();
 //        produData.eliminarProducto(1);
-         
-
-
- /*------------ Listar TODOS LOS PRODUCTOS ------------     */  //FUNCIONA
+        /*------------ Listar TODOS LOS PRODUCTOS ------------     */  //FUNCIONA
 //        ProductoData produData = new ProductoData();
 //        
 //        for(Producto producto:produData.listarProductos()){
@@ -97,11 +89,8 @@ public class Main {
 //            System.out.println("Stock: "+ producto.getStock());
 //        }
 //        
-                  
-      /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
-    
-                                              /*COMPRAS*/
-        
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
+        /*COMPRAS*/
         //------------ INSERTAR COMPRAS ------------   FUNCIONA -pero-> (agregar en compradata el tercer ? y agregar "estado" en el constructor de compra)
         /* ProveedorData ad = new ProveedorData();
 
@@ -109,9 +98,6 @@ public class Main {
         Compra com = new Compra(prov, LocalDate.of(2022, 06, 22));
         CompraData comData = new CompraData();
         comData.guardarCompra(com);*/
-        
-        
-        
         // ------------ MODIFICAR COMPRAS ------------   FUNCIONA  
         /*  ProveedorData ad = new ProveedorData();                     
         Proveedor prov = ad.buscarProveedorPorId(2);
@@ -125,18 +111,14 @@ public class Main {
         // ------------ ELIMINAR COMPRAS ------------     FUNCIONA  --pero--> No es mejor un borrado logico con el booleano a false??
         /* CompraData comData = new CompraData();
         comData.eliminarCompra(6,1);*/
-        
-        
-        
- /* ------------ BUSCAR COMPRAS POR ID -----------     */ //FUNCIONA -pero-> Proveedor da Null
-        /*   CompraData comData = new CompraData();
+ /* ------------ BUSCAR COMPRAS POR ID -----------     */ //FUNCIONA 
+        /*  CompraData comData = new CompraData();
+           ProveedorData prov= new ProveedorData();
         Compra comEncontrada = comData.buscarCompraPorId(1);
         if (comEncontrada != null) {
-            System.out.println("Razon Social del Prov: " + comEncontrada.getProveedor().getRazonSocial()
+            System.out.println("Razon Social del Prov: " + prov.buscarProveedorPorId(comEncontrada.getProveedor().getIdProveedor()).getRazonSocial()
                     + ", Fecha: " + comEncontrada.getFecha() + ", Telefono del Prov: " + comEncontrada.getProveedor().getTelefono());
         }*/
-        
- 
  /*-----------------  Obtener Compras Por Proveedor  ---------------*/ //    FUNCIONA
         /* ProveedorData ad = new ProveedorData();                     
     CompraData comData = new CompraData();
@@ -150,10 +132,8 @@ public class Main {
             System.out.println("Fecha de Compra: " + compra.getFecha());
             System.out.println();
         };*/
-        
-        
         //-----------------  Listar  Compras  ---------------               FUNCIONA           
-        ProveedorData ad = new ProveedorData();
+        /*   ProveedorData ad = new ProveedorData();
         CompraData comData = new CompraData();
         List<Compra> compras = comData.listarCompras();
         for (Compra compra : compras) {
@@ -163,10 +143,9 @@ public class Main {
             System.out.println("Fecha de Compra: " + compra.getFecha());
             System.out.println();
         };
-        
-        
-        /*-----------------  Listar CompraPORFechas  ---------------*/ //           FUNCIONA incluye bool 0
-       /* CompraData comData = new CompraData();
+         */
+ /*-----------------  Listar CompraPORFechas  ---------------*/ //           FUNCIONA incluye bool 0
+        /* CompraData comData = new CompraData();
         ProveedorData ad = new ProveedorData();
 
         // Definir la fecha
@@ -181,11 +160,8 @@ public class Main {
             System.out.println("Fecha de Compra: " + compra.getFecha());
             System.out.println();
         };*/
-                
-                
-                
-        /*----------------- Listar CompraEntreFechas  ---------------*/ //          FUNCIONA incluye bool 0
-       /* CompraData comData = new CompraData();
+ /*----------------- Listar CompraEntreFechas  ---------------*/ //          FUNCIONA incluye bool 0
+        /* CompraData comData = new CompraData();
         ProveedorData ad = new ProveedorData();
 
         // Definir las fechas de inicio y fin para la búsqueda
@@ -202,16 +178,57 @@ public class Main {
             System.out.println("Fecha de Compra: " + compra.getFecha());
             System.out.println();
         };*/
-
-        /*------------ PRUEBA DE METODO DETALECOMPRADATA ------------   */
- /* CompraData comData = new CompraData();
+        //-------------------------------------------------------------------------------------------------------------
+        //                                       DETALLE COMPRA
+        //------------ Guardar Detalle ------------   FUNCIONA -pero-> No disminuye el stock en Productos.
+        /*CompraData ad = new CompraData();
+        ProductoData asd = new ProductoData();
+        Compra compra = ad.buscarCompraPorId(1);
+        Producto prod = asd.buscarProductoPorId(1);
+        
+        DetalleCompra det = new DetalleCompra(3,prod.getPrecioActual()*3,compra,prod);
+        
+        DetalleCData sub = new DetalleCData();
+        
+        sub.guardarDetalleCompra(det);*/
+        // ------------ ELIMINAR Detalle ------------     FUNCIONA  --pero--> No es mejor un borrado logico con el booleano a false??
+        /* DetalleCData sub = new DetalleCData();
+        sub.eliminarDetalleCompra(3);*/
+ /* ------------ BUSCAR Detalle POR ID -----------     */ //
+        /* DetalleCData sub = new DetalleCData();
+        CompraData comData = new CompraData();
+        Compra comEncontrada = comData.buscarCompraPorId(1);
+        List <DetalleCompra> det = sub.buscarDetallePorCompra(comEncontrada);
+        if (det != null){
+            for (DetalleCompra detalle : det){
+                System.out.println("ID: " + detalle.getIdDetalle());
+                System.out.println("ID Compra: " + detalle.getCompra());
+                System.out.println("RS Proveedor: " + detalle.getCompra().getProveedor().getRazonSocial());
+                System.out.println("Producto: " + detalle.getProducto().getNombreProducto());
+                System.out.println("Cantidad: " + detalle.getCantidad());
+                System.out.println("Precio: " + detalle.getPrecioCosto());
+            }
+        }*/
+        //-----------------  Listar  DetalleCompras  ---------------               FUNCIONA           
+        /*   ProveedorData ad = new ProveedorData();
+        CompraData comData = new CompraData();
+        List<Compra> compras = comData.listarCompras();
+        for (Compra compra : compras) {
+            System.out.println("ID de Compra: " + compra.getIdCompra());
+            ///Agregar en CompraData un JOIN para RZ de proveedor
+            System.out.println("Nombre Proveedor: " + ad.buscarProveedorPorId(compra.getProveedor().getIdProveedor()).getRazonSocial());
+            System.out.println("Fecha de Compra: " + compra.getFecha());
+            System.out.println();*/
+ /*------------ PRUEBA buscarDetallePorCompra ------------   */    //          FUNCIONA  
+     /*   CompraData comData = new CompraData();
         Compra com = comData.buscarCompraPorId(1);
         DetalleCData detCompData = new DetalleCData();
-        detCompData.buscarDetallePorCompra(com).forEach(item->{
-            System.out.println(item.getIdDetalle());
-            System.out.println(item.getCantidad());
-            System.out.println(item.getPrecioCosto());
-            System.out.println(item.getProducto().getNombreProducto());
-        }); //funcion LAMBDA*/
+        detCompData.buscarDetallePorCompra(com).forEach(item -> {
+            System.out.println("ID detalle: " + item.getIdDetalle());
+            System.out.println("Cantidad: " + item.getCantidad());
+            System.out.println("Precio: " + item.getPrecioCosto());
+            System.out.println("Producto: " + item.getProducto().getNombreProducto());
+            System.out.println("");
+        });*/
     }
 }
