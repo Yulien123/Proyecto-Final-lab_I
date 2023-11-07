@@ -9,6 +9,14 @@ public class DetalleCompra {
     private Producto producto;
     private boolean estado;
 
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+
     public DetalleCompra() {
     }
 

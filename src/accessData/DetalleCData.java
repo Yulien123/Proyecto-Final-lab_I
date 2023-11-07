@@ -3,6 +3,7 @@ package accessData;
 import entity.Compra;
 import entity.DetalleCompra;
 import entity.Producto;
+import entity.Proveedor;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -74,28 +75,23 @@ public class DetalleCData {
     }
 
     public List<DetalleCompra> buscarDetallePorCompra(Compra compra) {
-        String sql = "SELECT idDetalleCompra, 'idCompra', 'cantidad', 'precioCosto', "
-                + "productos.* FROM 'detalleCompra' JOIN productos \n"
-                + "ON (productos.idProducto = detallecompra.idProducto) WHERE idCompra = ?";
+        String sql = "SELECT * FROM detallecompra WHERE idCompra = ?";
+        DetalleCompra detCompra = new DetalleCompra();
+        CompraData com = new CompraData();
+        ProductoData prod = new ProductoData();
         List<DetalleCompra> detalle = new ArrayList<DetalleCompra>();
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, compra.getIdCompra());
             ResultSet rs = ps.executeQuery();
-            DetalleCompra detCompra;
-            Producto prod;
             while (rs.next()) {
-                //int idProducto, String nombreProducto, String descripcion, double precioActual, int stock, boolean estado
-                prod = new Producto(
-                        rs.getInt("idProducto"),
-                        rs.getString("nombreProducto"),
-                        rs.getString("descripcion"),
-                        rs.getDouble("precioActual"),
-                        rs.getInt("stock"),
-                        rs.getBoolean("estado"));
 
-                detCompra = new DetalleCompra(rs.getInt("idDetalleCompra"),
-                        rs.getInt("cantidad"), rs.getDouble("precioCosto"), compra, prod, true);
+                detCompra.setIdDetalle(rs.getInt("idDetalle"));
+                detCompra.setCantidad(rs.getInt("cantidad"));
+                detCompra.setPrecioCosto(rs.getInt("precioCosto"));
+                detCompra.setCompra(com.buscarCompraPorId(rs.getInt("idCompra")));
+                detCompra.setProducto(prod.buscarProductoPorId(rs.getInt("idProducto")));
+                detCompra.setEstado(rs.getBoolean("estado"));
                 detalle.add(detCompra);
             }
             ps.close();
@@ -136,8 +132,8 @@ public class DetalleCData {
                 int idCompra = rs.getInt("idCompra");
                 int idProducto = rs.getInt("IdProducto");
 
-                Compra compra = new Compra(); 
-                Producto producto = prodData.buscarProductoPorId(idProducto); 
+                Compra compra = new Compra();
+                Producto producto = prodData.buscarProductoPorId(idProducto);
 
                 DetalleCompra detalleCompra = new DetalleCompra(idDetalle, cantidad, precioCosto, compra, producto, true);
                 detalleCompras.add(detalleCompra);
@@ -157,6 +153,4 @@ public class DetalleCData {
     --modificarDetalle(detalle)
     --EliminarDetalle(detalle)
     --listarDetalles*/
-    
-    
 }
