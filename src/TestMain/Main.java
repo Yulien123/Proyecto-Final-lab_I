@@ -55,6 +55,20 @@ public class Main {
             System.out.println("Telefono: "+ proveedor.getTelefono()); 
         }
          */
+ 
+ //////////////////LISTAR PROVEEDORES/////////////////////
+//        ProveedorData ad = new ProveedorData();
+//        
+//        
+//        List<Proveedor> proveedor = ad.listarProveedor();
+//        for (Proveedor prov : proveedor) {
+//            System.out.println("ID Proveedor: " + prov.getIdProveedor());
+//            ///Agregar en CompraData un JOIN para RZ de proveedor
+//            System.out.println("Razon social: " + prov.getRazonSocial());
+//            System.out.println();
+//        };
+// 
+ 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /*PRODUCTO PRUEBAS*/
  /*----Guardar producto----*/ //FUNCIONA
