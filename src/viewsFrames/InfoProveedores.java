@@ -12,7 +12,7 @@ public class InfoProveedores extends javax.swing.JInternalFrame {
         
     
     private List<Proveedor> listarP;
-    private ProveedorData aData = new ProveedorData();
+    ProveedorData aData = new ProveedorData();
 
     public InfoProveedores() {
         initComponents();
