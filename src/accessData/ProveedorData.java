@@ -119,6 +119,7 @@ public class ProveedorData {
     public List<Proveedor> listarProveedor() {
         String sql = "SELECT idProveedor, razonSocial, domicilio, telefono FROM proveedor WHERE estado = 1";
         ArrayList<Proveedor> proveedores = new ArrayList<>();
+
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -126,19 +127,24 @@ public class ProveedorData {
             while (rs.next()) {
                 Proveedor proveedor = new Proveedor();
                 proveedor.setIdProveedor(rs.getInt("idProveedor"));
-                proveedor.setRazonSocial("razonSocial");
-                proveedor.setDomicilio("domicilio");
+                proveedor.setRazonSocial(rs.getString("razonSocial"));
+                proveedor.setDomicilio(rs.getString("domicilio"));
                 proveedor.setTelefono(rs.getInt("telefono"));
-                proveedor.setEstado(true);
+                proveedor.setEstado(true); 
+
+                proveedores.add(proveedor); 
             }
 
             ps.close();
+            rs.close();
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla proveedor.");
         }
+
         return proveedores;
     }
+
     
    public List<Proveedor> listarProveedorxProducto(int idProducto) {
         String sql = "SELECT razonSocial, telefono, domicilio, idProveedor"
