@@ -81,7 +81,7 @@ public class MenuGeneralView extends javax.swing.JFrame {
 
         jMenu2.setText("Compras");
 
-        jMenuItem1.setText("Realizar compra");
+        jMenuItem1.setText("Buscar compra");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -89,7 +89,7 @@ public class MenuGeneralView extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem1);
 
-        jMenuItem3.setText("Detalle de compra");
+        jMenuItem3.setText("Realizar compra");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem3ActionPerformed(evt);
@@ -139,7 +139,7 @@ public class MenuGeneralView extends javax.swing.JFrame {
         jDesktopPane1.repaint();
         RegistroProductos materia = new RegistroProductos();
         materia.setVisible(true);
-        materia.getContentPane().setBackground(new Color(68, 167, 132));
+        materia.getContentPane().setBackground(new Color(0,102,204));
         jDesktopPane1.add(materia);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
@@ -149,7 +149,7 @@ public class MenuGeneralView extends javax.swing.JFrame {
         jDesktopPane1.repaint();
         ComprasProveedores materia = new ComprasProveedores();
         materia.setVisible(true);
-        materia.getContentPane().setBackground(new Color(68, 167, 132));
+        materia.getContentPane().setBackground(new Color(0,102,204));
         jDesktopPane1.add(materia);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
@@ -159,7 +159,7 @@ public class MenuGeneralView extends javax.swing.JFrame {
         jDesktopPane1.repaint();
         DetalleDeCompra materia = new DetalleDeCompra();
         materia.setVisible(true);
-        materia.getContentPane().setBackground(new Color(68, 167, 132));
+        materia.getContentPane().setBackground(new Color(0,102,204));
         jDesktopPane1.add(materia);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
@@ -169,7 +169,7 @@ public class MenuGeneralView extends javax.swing.JFrame {
         jDesktopPane1.repaint();
         InfoProveedores materia = new InfoProveedores();
         materia.setVisible(true);
-        materia.getContentPane().setBackground(new Color(68, 167, 132));
+        materia.getContentPane().setBackground(new Color(0,102,204));
         jDesktopPane1.add(materia);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
