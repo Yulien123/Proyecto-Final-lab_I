@@ -62,22 +62,23 @@ public class CompraData {
         }
     }
 
-    public void eliminarCompra(int idCompra, int idProveedor) {
-        String sql = "DELETE FROM compra WHERE idCompra = ? and idProveedor = ? ";
+    public void eliminarCompra(Compra compra) {
+        String sql = "UPDATE compra SET estado = 0"
+                + " WHERE idCompra = ?";
         try {
-            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, idCompra);
-            ps.setInt(2, idProveedor);
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, compra.getIdCompra());
+            int exito = ps.executeUpdate();
 
-            int filas = ps.executeUpdate();
-            if (filas > 0) {
-                JOptionPane.showMessageDialog(null, "La compra ha borrada con exito.");
+            if (exito == 1) {
+                JOptionPane.showMessageDialog(null, "La compra se ha borrada con exito.");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontro la compra.");
             }
-            ps.close();
+
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla compra.");
         }
-
     }
 
     public Compra buscarCompraPorId(int idCompra) {
@@ -183,9 +184,10 @@ public class CompraData {
         }
         return compras;
     }
+
     ///Agregar en CompraData un JOIN para RZ de proveedor
     public List<Compra> listarComprasEntreFechas(Date f1, Date f2) {
-        
+
         String sql = "SELECT *"
                 + " FROM compra"
                 + " WHERE fecha >= ? AND fecha <= ? AND estado = 1"; // f1> <f2
@@ -193,7 +195,7 @@ public class CompraData {
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setDate(1, f1);
-             ps.setDate(2, f2);
+            ps.setDate(2, f2);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
