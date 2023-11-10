@@ -42,6 +42,9 @@ public class InfoProveedores extends javax.swing.JInternalFrame {
         jTelefono = new javax.swing.JTextField();
         jEstado = new javax.swing.JTextField();
 
+        setMaximumSize(new java.awt.Dimension(570, 500));
+        setMinimumSize(new java.awt.Dimension(570, 500));
+
         jLabel1.setText("Informacion Proveedores");
 
         jLabel2.setText("Proveedor:");
