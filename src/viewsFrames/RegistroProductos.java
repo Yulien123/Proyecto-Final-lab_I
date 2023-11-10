@@ -53,6 +53,8 @@ public class RegistroProductos extends javax.swing.JInternalFrame {
         setClosable(true);
         setMaximizable(true);
         setResizable(true);
+        setMaximumSize(new java.awt.Dimension(680, 430));
+        setMinimumSize(new java.awt.Dimension(680, 430));
 
         jLabel1.setText("Registro de Productos");
 
@@ -135,7 +137,7 @@ public class RegistroProductos extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jBuscar)
                     .addComponent(jBSalir))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,7 +171,7 @@ public class RegistroProductos extends javax.swing.JInternalFrame {
                     .addComponent(btnModificar)
                     .addComponent(jBSalir)
                     .addComponent(btnNuevo))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
