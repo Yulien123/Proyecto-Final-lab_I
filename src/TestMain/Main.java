@@ -105,19 +105,19 @@ public class Main {
 //        
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
         /*COMPRAS*/
-        //------------ INSERTAR COMPRAS ------------   FUNCIONA -pero-> (agregar en compradata el tercer ? y agregar "estado" en el constructor de compra)
-        /* ProveedorData ad = new ProveedorData();
+      /*  //------------ INSERTAR COMPRAS ------------   FUNCIONA
+        ProveedorData ad = new ProveedorData();
 
         Proveedor prov = ad.buscarProveedorPorId(1);
-        Compra com = new Compra(prov, LocalDate.of(2022, 06, 22));
+        Compra com = new Compra(prov, LocalDate.of(2023, 06, 8));
         CompraData comData = new CompraData();
-        comData.guardarCompra(com);*/
+        comData.guardarCompra(com);
         // ------------ MODIFICAR COMPRAS ------------   FUNCIONA  
         /*  ProveedorData ad = new ProveedorData();                     
         Proveedor prov = ad.buscarProveedorPorId(2);
         Compra com = new Compra(2, prov, LocalDate.of(2022, 06, 22),true);
         CompraData comData = new CompraData();
-        comData.modificarCompra(com);
+        comData.modificarCompra(com);*/
         
         
         
@@ -158,8 +158,8 @@ public class Main {
             System.out.println();
         };
          */
- /*-----------------  Listar CompraPORFechas  ---------------*/ //           FUNCIONA incluye bool 0
-        /* CompraData comData = new CompraData();
+ /*-----------------  Listar CompraPORFechas  ---------------*/ //           FUNCIONA
+       /* CompraData comData = new CompraData();
         ProveedorData ad = new ProveedorData();
 
         // Definir la fecha
@@ -174,12 +174,12 @@ public class Main {
             System.out.println("Fecha de Compra: " + compra.getFecha());
             System.out.println();
         };*/
- /*----------------- Listar CompraEntreFechas  ---------------*/ //          FUNCIONA incluye bool 0
-        /* CompraData comData = new CompraData();
+ /*----------------- Listar CompraEntreFechas  ---------------*/ //          FUNCIONA
+       /*  CompraData comData = new CompraData();
         ProveedorData ad = new ProveedorData();
 
         // Definir las fechas de inicio y fin para la búsqueda
-        Date fechaInicio = java.sql.Date.valueOf(LocalDate.of(2023, 12, 2));
+        Date fechaInicio = java.sql.Date.valueOf(LocalDate.of(2023, 11, 2));
         Date fechaFin = java.sql.Date.valueOf(LocalDate.of(2023, 12, 23));
 
         // Llamar al método listarComprasEntreFechas
