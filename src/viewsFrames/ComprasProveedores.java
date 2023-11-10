@@ -53,6 +53,9 @@ public class ComprasProveedores extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
         jDateChooser2 = new com.toedter.calendar.JDateChooser();
 
+        setMaximumSize(new java.awt.Dimension(570, 500));
+        setMinimumSize(new java.awt.Dimension(570, 500));
+
         jLabel1.setText("Buscar Compras");
 
         jLabel2.setText("Proveedor");
