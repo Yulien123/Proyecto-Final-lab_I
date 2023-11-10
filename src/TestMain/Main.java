@@ -195,16 +195,16 @@ public class Main {
         //-------------------------------------------------------------------------------------------------------------
         //                                       DETALLE COMPRA
         //------------ Guardar Detalle ------------   FUNCIONA -pero-> No disminuye el stock en Productos.
-        /*CompraData ad = new CompraData();
+        CompraData ad = new CompraData();
         ProductoData asd = new ProductoData();
         Compra compra = ad.buscarCompraPorId(1);
-        Producto prod = asd.buscarProductoPorId(1);
+        Producto prod = asd.buscarProductoPorId(2);
         
         DetalleCompra det = new DetalleCompra(3,prod.getPrecioActual()*3,compra,prod);
         
         DetalleCData sub = new DetalleCData();
         
-        sub.guardarDetalleCompra(det);*/
+        sub.guardarDetalleCompra(det);
         // ------------ ELIMINAR Detalle ------------     FUNCIONA  --pero--> No es mejor un borrado logico con el booleano a false??
         /* DetalleCData sub = new DetalleCData();
         sub.eliminarDetalleCompra(3);*/

@@ -38,12 +38,21 @@ public class DetalleCData {
             ps.setInt(5, com.getProducto().getIdProdcuto());
 
             ps.executeUpdate();
+
+            
+            ProductoData pd = new ProductoData();
+            
+            Producto prod = pd.buscarProductoPorId(com.getProducto().getIdProdcuto());
+            //descontar la cantidad pedida
+            prod.setStock(prod.getStock()-com.getCantidad());
+            //se modifica con el descuento
+            pd.modificarProducto(prod);
+
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 com.setIdDetalle(rs.getInt(1));
                 JOptionPane.showMessageDialog(null, "Detalle Compra Registrado.");
             }
-
             ps.close();
 
         } catch (SQLException ex) {
