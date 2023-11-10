@@ -122,9 +122,11 @@ public class Main {
         
         
         
-        // ------------ ELIMINAR COMPRAS ------------     FUNCIONA  --pero--> No es mejor un borrado logico con el booleano a false??
-        /* CompraData comData = new CompraData();
-        comData.eliminarCompra(6,1);*/
+        // ------------ ELIMINAR COMPRAS ------------     FUNCIONA
+       /* CompraData comData = new CompraData();
+        Compra com = new Compra();
+        com = comData.buscarCompraPorId(2);
+        comData.eliminarCompra(com);*/
  /* ------------ BUSCAR COMPRAS POR ID -----------     */ //FUNCIONA 
         /*  CompraData comData = new CompraData();
            ProveedorData prov= new ProveedorData();
@@ -194,8 +196,8 @@ public class Main {
         };*/
         //-------------------------------------------------------------------------------------------------------------
         //                                       DETALLE COMPRA
-        //------------ Guardar Detalle ------------   FUNCIONA -pero-> No disminuye el stock en Productos.
-        CompraData ad = new CompraData();
+        //------------ Guardar Detalle ------------   FUNCIONA
+       /* CompraData ad = new CompraData();
         ProductoData asd = new ProductoData();
         Compra compra = ad.buscarCompraPorId(1);
         Producto prod = asd.buscarProductoPorId(2);
@@ -204,10 +206,7 @@ public class Main {
         
         DetalleCData sub = new DetalleCData();
         
-        sub.guardarDetalleCompra(det);
-        // ------------ ELIMINAR Detalle ------------     FUNCIONA  --pero--> No es mejor un borrado logico con el booleano a false??
-        /* DetalleCData sub = new DetalleCData();
-        sub.eliminarDetalleCompra(3);*/
+        sub.guardarDetalleCompra(det);*/
  /* ------------ BUSCAR Detalle POR ID -----------     */ //
         /* DetalleCData sub = new DetalleCData();
         CompraData comData = new CompraData();
