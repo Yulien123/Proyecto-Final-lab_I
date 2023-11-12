@@ -8,6 +8,7 @@ import entity.DetalleCompra;
 import entity.Producto;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -15,17 +16,27 @@ import javax.swing.table.DefaultTableModel;
 public class MasComprados extends javax.swing.JInternalFrame {
 
     private DefaultTableModel modelo;
+    private DefaultTableModel modelo2;
     private CompraData compraData;
+    private DetalleCompra detalleCompra;
 
     public MasComprados() {
         initComponents();
         this.setTitle("Productos mas comprados");
         compraData = new CompraData();
         modelo = new DefaultTableModel();
+        modelo2 = new DefaultTableModel();
+        String ids[]={"Id", "Nombre de Producto", "Cantidad"};
+        modelo.setColumnIdentifiers(ids);
+        jTComprados.setModel(modelo);
+        
+        String idst[]={"Id", "Nombre de Producto", "Cantidad", "Stock restante"};
+        modelo2.setColumnIdentifiers(idst);
+        jTStock.setModel(modelo2);
 
+        /*
         armarCabeceraCompra();
-        armarCabeceraStock();
-        cargarTablaCompra();
+        armarCabeceraStock();*/
     }
 
     @SuppressWarnings("unchecked")
@@ -165,32 +176,37 @@ public class MasComprados extends javax.swing.JInternalFrame {
 
     private void jBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBuscarActionPerformed
 
+        ProductoData pd = new ProductoData();
+        
+        Date fecha1 = new Date(f1.getDate().getTime());
+        Date fecha2 = new Date(f2.getDate().getTime());
+        List<Producto> listaM = new ArrayList<> ();
+        
+        LocalDate f1 = fecha1.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate f2 = fecha2.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        listaM = pd.listarComprasEntreFechas(fecha1, fecha2);
 
+        for(Producto tabla1: listaM){
+            modelo.addRow(new Object[]{tabla1.getIdProdcuto(), tabla1.getNombreProducto(), tabla1.getStock()});
+        }
+        
     }//GEN-LAST:event_jBuscarActionPerformed
-
+/*
     private void armarCabeceraCompra() {
-        ArrayList<Object> filaCabecera = new ArrayList<>();
-        filaCabecera.add("Id");
-        filaCabecera.add("Proveedor");
-        filaCabecera.add("Cantidad");
+        ArrayList<Object> modelo = new ArrayList<>();
+        modelo.add("Id");
+        modelo.add("Producto");
+        modelo.add("Cantidad");
     }
 
     private void armarCabeceraStock() {
-        ArrayList<Object> filaCabecera = new ArrayList<>();
-        filaCabecera.add("Id");
-        filaCabecera.add("Producto");
-        filaCabecera.add("Cantidad");
-        filaCabecera.add("Stock restante");
+        ArrayList<Object> filaCabeceraS = new ArrayList<>();
+        filaCabeceraS.add("Id");
+        filaCabeceraS.add("Producto");
+        filaCabeceraS.add("Cantidad");
+        filaCabeceraS.add("Stock restante");
     }
-
-    private void cargarTablaCompra() {
-        List<Compra> listaM = compraData.listarComprasEntreFechas(Date.valueOf(LocalDate));
-        for (Compra mc : compraData.listarComprasEntreFechas()) {
-            modelo.addRow(new Object[]{mc.getIdCompra(), mc.getProveedor()});
-        }
-
-    }
-
+*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser f1;

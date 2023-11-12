@@ -127,6 +127,9 @@
               </Table>
             </Property>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="MasComprados_jTComprados"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

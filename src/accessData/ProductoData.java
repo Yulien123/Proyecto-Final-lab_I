@@ -1,15 +1,20 @@
 package accessData;
 
+import entity.Compra;
 import entity.Producto;
+import entity.Proveedor;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.chart.PieChart;
 import javax.swing.JOptionPane;
 
 public class ProductoData {
@@ -141,4 +146,37 @@ public class ProductoData {
         }
         return productos;
     }
+    
+     public List<Producto> listarComprasEntreFechas(Date f1, Date f2) {
+
+        String sql = "SELECT * FROM producto p JOIN detallecompra d ON (p.idProducto = d.IdProducto) "
+                + "JOIN compra c ON (c.idCompra = d.idCompra) "
+                + "WHERE c.fecha >= ? AND c.fecha <= ?";
+        List<Producto> produc = new ArrayList<>();
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setDate(1, f1);
+            ps.setDate(2, f2);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Producto prod = new Producto();
+                prod.setIdProdcuto(rs.getInt("idProducto"));
+                prod.setNombreProducto(rs.getString("nombreProducto"));
+                prod.setDescripcion(rs.getString("descripcion"));
+                prod.setPrecioActual(rs.getDouble("precioActual"));
+                prod.setStock(rs.getInt("stock"));                
+                prod.setEstado(rs.getBoolean("estado"));
+
+                produc.add(prod);
+            }
+
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla compra: " + ex.getMessage());
+        }
+        return produc;
+    }
+    
 }
