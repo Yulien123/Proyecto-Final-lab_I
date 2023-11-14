@@ -185,7 +185,7 @@ public class CompraData {
         return compras;
     }
 
-    ///Agregar en CompraData un JOIN para RZ de proveedor
+    
     public List<Compra> listarComprasEntreFechas(Date f1, Date f2) {
 
         String sql = "SELECT *"

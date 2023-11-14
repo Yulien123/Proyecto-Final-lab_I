@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.scene.chart.PieChart;
 import javax.swing.JOptionPane;
 
 public class ProductoData {
@@ -27,7 +26,7 @@ public class ProductoData {
 
    public void guardarProducto(Producto producto) {
     String sql = "INSERT INTO producto(nombreProducto, descripcion, precioActual, stock, estado)"
-            + " VALUES(?, ?, ?, ?, ?)";
+            + " VALUES(?, ?, ?, ?, 1)";
 
     try {
         PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -35,7 +34,6 @@ public class ProductoData {
         ps.setString(2, producto.getDescripcion());
         ps.setDouble(3, producto.getPrecioActual());
         ps.setInt(4, producto.getStock());
-        ps.setBoolean(5, producto.isEstado());
 
         ps.executeUpdate();
 
