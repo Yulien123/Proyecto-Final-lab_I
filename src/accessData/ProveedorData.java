@@ -29,7 +29,7 @@ public class ProveedorData {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, proveedor.getRazonSocial());
             ps.setString(2, proveedor.getDomicilio());
-            ps.setInt(3, proveedor.getTelefono());
+            ps.setLong(3, proveedor.getTelefono());
             ps.setBoolean(4, true);
             ps.executeUpdate();
 
@@ -57,7 +57,7 @@ public class ProveedorData {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, proveedor.getRazonSocial());
             ps.setString(2, proveedor.getDomicilio());
-            ps.setInt(3, proveedor.getTelefono());
+            ps.setLong(3, proveedor.getTelefono());
             ps.setInt(4, proveedor.getIdProveedor());
             int exito = ps.executeUpdate();
 
@@ -101,7 +101,7 @@ public class ProveedorData {
                 proveedor.setIdProveedor(id);
                 proveedor.setRazonSocial(rs.getString("razonSocial"));
                 proveedor.setDomicilio(rs.getString("domicilio"));
-                proveedor.setTelefono(rs.getInt("telefono"));
+                proveedor.setTelefono(rs.getLong("telefono"));
                 proveedor.setEstado(true);
 
             } else {
@@ -129,7 +129,7 @@ public class ProveedorData {
                 proveedor.setIdProveedor(rs.getInt("idProveedor"));
                 proveedor.setRazonSocial(rs.getString("razonSocial"));
                 proveedor.setDomicilio(rs.getString("domicilio"));
-                proveedor.setTelefono(rs.getInt("telefono"));
+                proveedor.setTelefono(rs.getLong("telefono"));
                 proveedor.setEstado(true); 
 
                 proveedores.add(proveedor); 
@@ -144,7 +144,6 @@ public class ProveedorData {
 
         return proveedores;
     }
-
     
    public List<Proveedor> listarProveedorxProducto(int idProducto) {
         String sql = "SELECT razonSocial, telefono, domicilio, idProveedor"
@@ -160,7 +159,7 @@ public class ProveedorData {
                 proveedor.setIdProveedor(rs.getInt("idProveedor"));
                 proveedor.setRazonSocial("razonSocial");
                 proveedor.setDomicilio("domicilio");
-                proveedor.setTelefono(rs.getInt("telefono"));
+                proveedor.setTelefono(rs.getLong("telefono"));
                 proveedor.setEstado(true);
             }
 

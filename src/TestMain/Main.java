@@ -22,11 +22,11 @@ public class Main {
 
         /*Proveedor*/
 
- /* ------------ INSERTAR PROVEEDOR ------------ 
-        Proveedor prov = new Proveedor("Sanyo Electric", "Osaka Japon", 123456789, true);
+ //------------ INSERTAR PROVEEDOR ------------ 
+        /*Proveedor prov = new Proveedor("Sanyo Electric", "Osaka Japon", 123456789, true);
         ProveedorData provData = new ProveedorData();
-        provData.guardarProveedor(prov);
-         */
+        provData.guardarProveedor(prov);*/
+         
  /* ------------ MODIFICAR PROVEEDOR ------------  
         Proveedor prov = new Proveedor(1, "LG", "Busan Corea del Sur", 234567891, true);
         ProveedorData provData = new ProveedorData();
@@ -37,14 +37,14 @@ public class Main {
         ProveedorData provData = new ProveedorData();
         provData.eliminarProveedor(1);
          */
- /* ------------ BUSCAR PROVEEDOR POR ID ------------      
-        ProveedorData provData = new ProveedorData();
-        Proveedor provEncontrado = provData.buscarProveedorPorId(2);
+ // ------------ BUSCAR PROVEEDOR POR ID ------------      
+       ProveedorData provData = new ProveedorData();
+        Proveedor provEncontrado = provData.buscarProveedorPorId(9);
         if(provEncontrado != null){
             System.out.println("Razon Social: " + provEncontrado.getRazonSocial() + ", Domicilio: " 
                     + provEncontrado.getDomicilio() + ", Telefono: " + provEncontrado.getTelefono());
         }           
-         */
+         
  /*------------ BUSCAR TODOS LOS PROVEEDORES ------------      
         ProveedorData provData = new ProveedorData();
         
