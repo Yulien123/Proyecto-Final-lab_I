@@ -36,11 +36,9 @@ public class InfoProveedores extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jTRazon = new javax.swing.JTextField();
         jTDomicilio = new javax.swing.JTextField();
         jTelefono = new javax.swing.JTextField();
-        jEstado = new javax.swing.JTextField();
 
         setMaximumSize(new java.awt.Dimension(570, 500));
         setMinimumSize(new java.awt.Dimension(570, 500));
@@ -90,8 +88,6 @@ public class InfoProveedores extends javax.swing.JInternalFrame {
 
         jLabel5.setText("Telefono:");
 
-        jLabel6.setText("Estado:");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -102,33 +98,30 @@ public class InfoProveedores extends javax.swing.JInternalFrame {
                 .addGap(182, 182, 182))
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jAgregar)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel3)
-                        .addComponent(jLabel2)
-                        .addComponent(jLabel4)
-                        .addComponent(jLabel5)
-                        .addComponent(jLabel6)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5)
+                    .addComponent(jAgregar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnModificar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnEliminar)
-                        .addGap(62, 62, 62)
-                        .addComponent(btnSalir)
-                        .addGap(103, 103, 103))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jEstado, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTelefono, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTDomicilio, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTRazon, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jcbProveedor, javax.swing.GroupLayout.Alignment.LEADING, 0, 291, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addComponent(jBuscar)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnModificar)
+                        .addGap(27, 27, 27)
+                        .addComponent(btnEliminar)
+                        .addGap(32, 32, 32)
+                        .addComponent(btnSalir)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,17 +146,13 @@ public class InfoProveedores extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
                     .addComponent(jTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jAgregar)
                     .addComponent(btnModificar)
                     .addComponent(btnEliminar)
-                    .addComponent(btnSalir)
-                    .addComponent(jAgregar))
-                .addGap(28, 28, 28))
+                    .addComponent(btnSalir))
+                .addGap(101, 101, 101))
         );
 
         pack();
@@ -226,7 +215,6 @@ public class InfoProveedores extends javax.swing.JInternalFrame {
             jTRazon.setText("");
             jTDomicilio.setText("");
             jTelefono.setText("");
-            jEstado.setText("");
             
             listarP = aData.listarProveedor();
             cargarProveedores();
@@ -262,7 +250,6 @@ public class InfoProveedores extends javax.swing.JInternalFrame {
                 jTRazon.setText("");
                 jTDomicilio.setText("");
                 jTelefono.setText("");
-                jEstado.setText(""); 
             }
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Debe ingresar un número válido en el campo teléfono.");
@@ -281,13 +268,11 @@ public class InfoProveedores extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton jAgregar;
     private javax.swing.JButton jBuscar;
-    private javax.swing.JTextField jEstado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JTextField jTDomicilio;
     private javax.swing.JTextField jTRazon;
     private javax.swing.JTextField jTelefono;
