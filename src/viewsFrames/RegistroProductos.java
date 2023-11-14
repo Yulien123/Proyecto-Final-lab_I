@@ -14,6 +14,7 @@ public class RegistroProductos extends javax.swing.JInternalFrame {
 
     private List<Producto> listarP;
     private ProductoData aData = new ProductoData();
+    private ProductoData productoData;
 
     public RegistroProductos() {
         initComponents();
@@ -21,6 +22,9 @@ public class RegistroProductos extends javax.swing.JInternalFrame {
         listarP = (List<Producto>) aData.listarProductos();
         cargarProductos();
         vaciarCampos();
+        productoData = new ProductoData(); 
+        mostrarProductosConStockMinimo();
+
 
     }
 
@@ -244,8 +248,7 @@ public class RegistroProductos extends javax.swing.JInternalFrame {
         int id = ((Producto) jcbCodProducto.getSelectedItem()).getIdProdcuto();
         System.out.println(id);
         prod = ad.buscarProductoPorId(id);
-        btnModificar.setEnabled(false);
-        btnAgregar.setEnabled(false);
+   
 
         jTDescripcion.setText(prod.getDescripcion());
         jTNombre.setText(prod.getNombreProducto());
@@ -273,6 +276,28 @@ public class RegistroProductos extends javax.swing.JInternalFrame {
         jTDescripcion.setText("");
         jTPrecio.setText("");
         jTCantidad.setText("");
+    }
+
+    private void mostrarProductosConStockMinimo() {
+        List<Producto> todosLosProductos = obtenerTodosLosProductos();
+        String mensaje = "";
+
+        for (Producto producto : todosLosProductos) {
+            if (producto.getStock() < 5) {
+                mensaje += "El producto " + producto.getNombreProducto() + " tiene un stock por debajo de 5. Reponga el stock.\n";
+            }
+        }
+
+        if (!mensaje.isEmpty()) {
+            JOptionPane.showMessageDialog(this, mensaje);
+        } else {
+            JOptionPane.showMessageDialog(this, "Todos los productos tienen un stock adecuado.");
+        }
+    }
+
+    private List<Producto> obtenerTodosLosProductos() {
+        List<Producto> productos = productoData.listarProductos();
+        return productos;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
