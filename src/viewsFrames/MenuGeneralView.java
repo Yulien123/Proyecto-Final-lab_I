@@ -188,7 +188,7 @@ public class MenuGeneralView extends javax.swing.JFrame {
         jDesktopPane1.repaint();
         MasComprados materia = new MasComprados();
         materia.setVisible(true);
-        materia.getContentPane().setBackground(new Color(68, 167, 132));
+        materia.getContentPane().setBackground(new Color(0,102,204));
         jDesktopPane1.add(materia);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
