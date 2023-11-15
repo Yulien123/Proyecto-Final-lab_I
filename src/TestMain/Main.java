@@ -38,12 +38,12 @@ public class Main {
         provData.eliminarProveedor(1);
          */
  // ------------ BUSCAR PROVEEDOR POR ID ------------      
-       ProveedorData provData = new ProveedorData();
-        Proveedor provEncontrado = provData.buscarProveedorPorId(9);
-        if(provEncontrado != null){
-            System.out.println("Razon Social: " + provEncontrado.getRazonSocial() + ", Domicilio: " 
-                    + provEncontrado.getDomicilio() + ", Telefono: " + provEncontrado.getTelefono());
-        }           
+//       ProveedorData provData = new ProveedorData();
+//        Proveedor provEncontrado = provData.buscarProveedorPorId(9);
+//        if(provEncontrado != null){
+//            System.out.println("Razon Social: " + provEncontrado.getRazonSocial() + ", Domicilio: " 
+//                    + provEncontrado.getDomicilio() + ", Telefono: " + provEncontrado.getTelefono());
+//        }           
          
  /*------------ BUSCAR TODOS LOS PROVEEDORES ------------      
         ProveedorData provData = new ProveedorData();
@@ -105,10 +105,10 @@ public class Main {
 //        
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
         /*COMPRAS*/
-      /*  //------------ INSERTAR COMPRAS ------------   FUNCIONA
+      /* */ //------------ INSERTAR COMPRAS ------------   FUNCIONA
         ProveedorData ad = new ProveedorData();
 
-        Proveedor prov = ad.buscarProveedorPorId(1);
+        Proveedor prov = ad.buscarProveedorPorId(5);
         Compra com = new Compra(prov, LocalDate.of(2023, 06, 8));
         CompraData comData = new CompraData();
         comData.guardarCompra(com);
