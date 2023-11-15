@@ -155,11 +155,4 @@ public class DetalleCData {
         return detalleCompras;
     }
 
-    /*Detalle como un recibo de compra de un producto
-    los metodos que yo sugiero: 
-    --guardarDetalleDeCompra(DetalleDeCompra)
-    --buscarDetalleDeCompraPorID(DetalleDeCompra idDetalle)
-    --modificarDetalle(detalle)
-    --EliminarDetalle(detalle)
-    --listarDetalles*/
 }

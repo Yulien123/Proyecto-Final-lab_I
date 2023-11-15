@@ -60,7 +60,7 @@ public class Compra {
 
     @Override
     public String toString() {
-        return idCompra + "- " + proveedor.getRazonSocial();
+        return "id: " + idCompra + ", proveedor: " + proveedor;
     }
 
 }

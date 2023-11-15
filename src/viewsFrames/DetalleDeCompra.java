@@ -13,8 +13,7 @@ import entity.Compra;
 import entity.DetalleCompra;
 import entity.Producto;
 import entity.Proveedor;
-import java.sql.Date;
-
+import java.util.Date;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -37,10 +36,10 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
     private DefaultTableModel modelo;
     private Compra nuevaCompra;
     private Proveedor nuevoProv;
-    
+
     public DetalleDeCompra() {
         initComponents();
-        this.setTitle("Detalle de compras");
+        this.setTitle("Realizar una Compra");
         compraData = new CompraData();
         detalleData = new DetalleCData();
         provData = new ProveedorData();
@@ -50,12 +49,17 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
         listaD = (ArrayList<DetalleCompra>) detalleData.listarDetalleCompras();
         nuevaCompra = null;
         nuevoProv = null;
-        
+
         enableNuevo(false);
+        jtfIdCompra.setEnabled(true);
+        jbBuscarC.setEnabled(true);
+        jbModificarC.setVisible(false);
+
         armarCabeceraTabla();
         cargarTabla();
         cargarProveedores();
-    
+        cargarCompras();
+
     }
 
     /**
@@ -71,19 +75,28 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
         jPasswordField1 = new javax.swing.JPasswordField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtTabla = new javax.swing.JTable();
-        jcbProveedores = new javax.swing.JComboBox<>();
-        jbBuscar = new javax.swing.JButton();
+        jbModificarD = new javax.swing.JButton();
         jbSalir = new javax.swing.JButton();
-        jbGuardar = new javax.swing.JButton();
-        jbNuevo = new javax.swing.JButton();
-        jbEliminar = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jbActualizar = new javax.swing.JButton();
+        jDesktopPane1 = new javax.swing.JDesktopPane();
+        jbEliminarC = new javax.swing.JButton();
+        jbGuardarC = new javax.swing.JButton();
+        jbNuevo = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jdcFecha = new com.toedter.calendar.JDateChooser();
         jckbEstado = new javax.swing.JCheckBox();
+        jcbProveedores = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jbBuscarC = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jtfIdCompra = new javax.swing.JTextField();
+        jbModificarC = new javax.swing.JButton();
+        jbEliminarD = new javax.swing.JButton();
+        jcbCompras = new javax.swing.JComboBox<>();
+        jLabel7 = new javax.swing.JLabel();
 
         jButton1.setText("jButton1");
 
@@ -93,7 +106,7 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
         setMaximizable(true);
         setResizable(true);
         setMinimumSize(new java.awt.Dimension(22, 22));
-        setPreferredSize(new java.awt.Dimension(522, 522));
+        setPreferredSize(new java.awt.Dimension(522, 530));
 
         jScrollPane1.setViewportView(jtTabla);
         if (jtTabla.getColumnModel().getColumnCount() > 0) {
@@ -105,16 +118,10 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
             jtTabla.getColumnModel().getColumn(5).setHeaderValue("Estado");
         }
 
-        jcbProveedores.addActionListener(new java.awt.event.ActionListener() {
+        jbModificarD.setText("Modificar");
+        jbModificarD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jcbProveedoresActionPerformed(evt);
-            }
-        });
-
-        jbBuscar.setText("Buscar");
-        jbBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbBuscarActionPerformed(evt);
+                jbModificarDActionPerformed(evt);
             }
         });
 
@@ -125,31 +132,8 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
             }
         });
 
-        jbGuardar.setText("Guardar");
-        jbGuardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbGuardarActionPerformed(evt);
-            }
-        });
-
-        jbNuevo.setText("Nuevo");
-        jbNuevo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbNuevoActionPerformed(evt);
-            }
-        });
-
-        jbEliminar.setText("Eliminar");
-        jbEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbEliminarActionPerformed(evt);
-            }
-        });
-
-        jLabel4.setText("Proveedor:");
-
-        jLabel6.setText("Fecha:");
-
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Detalles de compra registrados");
 
         jbActualizar.setText("Actualizar");
@@ -159,129 +143,254 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
             }
         });
 
+        jDesktopPane1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jbEliminarC.setText("Eliminar");
+        jbEliminarC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEliminarCActionPerformed(evt);
+            }
+        });
+
+        jbGuardarC.setText("Guardar");
+        jbGuardarC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbGuardarCActionPerformed(evt);
+            }
+        });
+
+        jbNuevo.setForeground(new java.awt.Color(60, 63, 65));
+        jbNuevo.setText("NuevaCompra");
+        jbNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbNuevoActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Fecha:");
+
         jLabel5.setText("Estado:");
+
+        jcbProveedores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbProveedoresActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Proveedor:");
+
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Compras");
+
+        jbBuscarC.setText("Buscar");
+        jbBuscarC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbBuscarCActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Codigo de Compra:");
+
+        jbModificarC.setText("Modificar");
+        jbModificarC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbModificarCActionPerformed(evt);
+            }
+        });
+
+        jDesktopPane1.setLayer(jbEliminarC, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jbGuardarC, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jbNuevo, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jLabel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jdcFecha, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jckbEstado, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jcbProveedores, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jbBuscarC, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jtfIdCompra, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jbModificarC, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
+        jDesktopPane1.setLayout(jDesktopPane1Layout);
+        jDesktopPane1Layout.setHorizontalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                .addGap(211, 211, 211)
+                .addComponent(jLabel2)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                        .addComponent(jbNuevo)
+                        .addGap(18, 18, 18)
+                        .addComponent(jbGuardarC)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jbEliminarC)
+                        .addGap(17, 17, 17))
+                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3))
+                        .addGap(18, 18, 18)
+                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jcbProveedores, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jckbEstado, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jdcFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
+                            .addComponent(jtfIdCompra))
+                        .addGap(18, 18, 18)
+                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jbBuscarC)
+                            .addComponent(jbModificarC))
+                        .addContainerGap(12, Short.MAX_VALUE))))
+        );
+        jDesktopPane1Layout.setVerticalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jtfIdCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbBuscarC))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jcbProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(jbModificarC))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
+                    .addComponent(jdcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22)
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(jckbEstado))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbEliminarC)
+                    .addComponent(jbGuardarC)
+                    .addComponent(jbNuevo))
+                .addContainerGap())
+        );
+
+        jbEliminarD.setText("Eliminar");
+        jbEliminarD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEliminarDActionPerformed(evt);
+            }
+        });
+
+        jcbCompras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbComprasActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("Compras");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jbActualizar)
+                            .addGap(18, 18, 18)
+                            .addComponent(jbModificarD)
+                            .addGap(18, 18, 18)
+                            .addComponent(jbEliminarD)
+                            .addGap(101, 101, 101)
+                            .addComponent(jbSalir))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE))
+                    .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 445, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jbNuevo)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jbGuardar)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jbEliminar))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel6)
-                                            .addComponent(jLabel5)
-                                            .addComponent(jLabel4))
-                                        .addGap(32, 32, 32)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jcbProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jckbEstado)
-                                            .addComponent(jdcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addComponent(jbActualizar))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(15, 15, 15)
-                                        .addComponent(jbSalir))
-                                    .addComponent(jbBuscar)))))
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel7)
+                        .addGap(38, 38, 38)
+                        .addComponent(jcbCompras, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(170, 170, 170)
+                        .addGap(128, 128, 128)
                         .addComponent(jLabel1)))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jbBuscar)
-                        .addGap(152, 152, 152)
-                        .addComponent(jbSalir))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(7, 7, 7)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbActualizar)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jcbProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jdcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(19, 19, 19)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jckbEstado))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jbNuevo)
-                            .addComponent(jbEliminar)
-                            .addComponent(jbGuardar))))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addGap(12, 12, 12)
+                .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(jcbCompras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbSalir)
+                    .addComponent(jbActualizar)
+                    .addComponent(jbModificarD)
+                    .addComponent(jbEliminarD))
+                .addGap(31, 31, 31))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
+    private void jbModificarDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarDActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jbBuscarActionPerformed
+    }//GEN-LAST:event_jbModificarDActionPerformed
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
-       dispose();
+        dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
 
-    private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
-        String prov = jcbProveedores.getSelectedItem().toString();
-        Date fecha = (Date) jdcFecha.getDate();
-        boolean estado = jckbEstado.isSelected();
-        
-        if (prov.isEmpty() || fecha.toString().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "No debe haber campos vacíos");
-            return;
-        }
+    private void jbGuardarCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarCActionPerformed
+        int id = 0;
         try {
-           LocalDate fechaCompra = fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-           for(Proveedor it: listaP){
-               if(it.getRazonSocial().equals(prov)){
-                   String razon = it.getRazonSocial();
-                   String dom = it.getDomicilio();
-                   Long tel = it.getTelefono();
-                   boolean state = it.isEstado();
-                   nuevoProv = new Proveedor(razon,dom,tel,state);
-               }
-           }
-           if(nuevaCompra == null){
-               nuevaCompra = new Compra(nuevoProv,fechaCompra);
-               compraData.guardarCompra(nuevaCompra);
-           }else {
-               nuevaCompra.setProveedor(nuevoProv);
-               nuevaCompra.setFecha(fechaCompra);
-               compraData.modificarCompra(nuevaCompra);
-           }
-            JOptionPane.showMessageDialog(this, "Compra realizada con éxito");
+            String prov = jcbProveedores.getSelectedItem().toString();
+            Date fecha = jdcFecha.getDate();
+            LocalDate fechaCompra = fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            boolean estado = jckbEstado.isSelected();
+
+            if (prov.isEmpty() || fecha.toString().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No debe haber campos vacíos");
+                return;
+            }
+
+            for (Proveedor it : listaP) {
+                if (it.getRazonSocial().equals(prov)) {
+                    System.out.println("Encontrado");
+                    id = it.getIdProveedor();
+                }
+            }
+            nuevoProv = provData.buscarProveedorPorId(id);
+
+            if (nuevaCompra == null) {
+                nuevaCompra = new Compra(nuevoProv, fechaCompra);
+                compraData.guardarCompra(nuevaCompra);
+            } else {
+                nuevaCompra.setProveedor(nuevoProv);
+                nuevaCompra.setFecha(fechaCompra);
+                compraData.modificarCompra(nuevaCompra);
+            }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Error al ingresar los datos");
             return;
         }
         limpiarCampos();
         enableNuevo(false);
-    }//GEN-LAST:event_jbGuardarActionPerformed
+    }//GEN-LAST:event_jbGuardarCActionPerformed
 
     private void jbActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbActualizarActionPerformed
         borrarFilaTabla();
@@ -295,7 +404,7 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
     private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
         Object[] options = {"Si", "No"};
         if (validarCamposVacios() == false) {
-            int confirm = JOptionPane.showOptionDialog(null, "¡Perderás estos datos! ¿Desea realizar una Compra? ", "",//contenido de la ventana,icon,msg,title
+            int confirm = JOptionPane.showOptionDialog(null, "¿Desea realizar una Compra? ", "",//contenido de la ventana,icon,msg,title
                     JOptionPane.YES_NO_CANCEL_OPTION, //3 botones si,otro,cancel
                     JOptionPane.QUESTION_MESSAGE,//tipo de icono
                     null, //null para icono por defecto
@@ -304,107 +413,196 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
             if (confirm == 0) {
                 limpiarCampos();
                 enableNuevo(true);
+                jtfIdCompra.setEnabled(false);
+                jbBuscarC.setEnabled(false);
             }
         } else {
             limpiarCampos();
             enableNuevo(true);
+            jtfIdCompra.setEnabled(false);
+            jbBuscarC.setEnabled(false);
         }
 
     }//GEN-LAST:event_jbNuevoActionPerformed
 
-    private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
-          if (nuevaCompra != null) {
+    private void jbEliminarCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarCActionPerformed
+        if (nuevaCompra != null) {
             compraData.eliminarCompra(nuevaCompra);
             nuevaCompra = null;
             limpiarCampos();
         } else {
             JOptionPane.showMessageDialog(this, "No hay un compra seleccionada.");
         }
-    }//GEN-LAST:event_jbEliminarActionPerformed
-    
-    private void cargarProveedores(){
+    }//GEN-LAST:event_jbEliminarCActionPerformed
+
+    private void jbEliminarDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbEliminarDActionPerformed
+
+    private void jbBuscarCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarCActionPerformed
+        Compra encontrado;
+        
+        if (jtfIdCompra.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Debe ingresar un código de compra para modificar");
+            return;
+        } else {
+           
+            try {
+                int id = Integer.parseInt(jtfIdCompra.getText());
+                encontrado = compraData.buscarCompraPorId(id);
+                if(encontrado.getIdCompra() == id){
+                     jbModificarC.setVisible(true);
+                     enableNuevo(true);
+                     jbGuardarC.setEnabled(false);
+                     jbEliminarC.setEnabled(false);
+                     //mostrar en combobox el item que corresponda.
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Debe ingresar un número");
+            }
+        }
+
+
+    }//GEN-LAST:event_jbBuscarCActionPerformed
+
+    private void jcbComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbComprasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbComprasActionPerformed
+
+    private void jbModificarCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarCActionPerformed
+        int id = Integer.parseInt(jtfIdCompra.getText());
+        Proveedor prov=null;
+        if (jtfIdCompra.getText().isEmpty() || jdcFecha.getDateFormatString().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No pueden haber campos vacios");
+            return;
+        }
+        try {
+            Date fecha = jdcFecha.getDate();
+            LocalDate fechaCompra = fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            boolean estado = jckbEstado.isSelected();
+            String razon = jcbProveedores.getSelectedItem().toString();
+            for(Proveedor it: listaP){
+                if(it.getRazonSocial().equals(razon)){
+                    String rs = it.getRazonSocial();
+                    long tel = it.getTelefono();
+                    String dom = it.getDomicilio();
+                    int idP = it.getIdProveedor();
+                    boolean est = it.isEstado();
+                    prov = new Proveedor(idP,rs,dom,tel,est);
+                }
+            }
+               
+            nuevaCompra.setProveedor(prov);
+            nuevaCompra.setFecha(fechaCompra);
+            nuevaCompra.setEstado(estado);
+            compraData.modificarCompra(nuevaCompra);
+            limpiarCampos();
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Debe ingresar un número");
+        }
+    }//GEN-LAST:event_jbModificarCActionPerformed
+
+    private void cargarProveedores() {
         for (Proveedor item : listaP) {
             jcbProveedores.addItem(item);
         }
-    
+
     }
-    
+
+    private void cargarCompras() {
+        for (Compra item : listaC) {
+            jcbCompras.addItem(item);
+        }
+
+    }
+
     private void armarCabeceraTabla() {
-       // ArrayList<Object> filaCabecera = new ArrayList<>();
+        // ArrayList<Object> filaCabecera = new ArrayList<>();
         modelo.addColumn("Id");
         modelo.addColumn("Cantidad");
         modelo.addColumn("Precio C");
-       modelo.addColumn("Compra");
+        modelo.addColumn("Compra");
         modelo.addColumn("Poducto");
         modelo.addColumn("Estado");
         jtTabla.setModel(modelo);
     }
-    
-    private void cargarTabla(){
+
+    private void cargarTabla() {
         borrarFilaTabla();
-        for(DetalleCompra it: listaD) {
+        for (DetalleCompra it : listaD) {
             modelo.addRow(new Object[]{it.getIdDetalle(), it.getCantidad(),
-                          it.getPrecioCosto(), it.getCompra().getIdCompra() , it.getProducto().getNombreProducto(), it.isEstado()});
+                it.getPrecioCosto(), it.getCompra().toString(), it.getProducto().getNombreProducto(), it.isEstado()});
         }
     }
-    
+
     private void borrarFilaTabla() {
         int indice = modelo.getRowCount() - 1;
         for (int i = indice; i >= 0; i--) {
             modelo.removeRow(i);
         }
     }
-    
+
     private void limpiarCampos() {
         jcbProveedores.setSelectedIndex(0);
         jdcFecha.setDate(null);
         jckbEstado.setSelected(false);
-       // prodEncontrado = null;
+        jtfIdCompra.setText("");
+        // prodEncontrado = null;
     }
-    
+
     private void enableNuevo(boolean flag) {
         jcbProveedores.setEnabled(flag);
         jdcFecha.setEnabled(flag);
         jckbEstado.setEnabled(flag);
-        jbBuscar.setEnabled(flag);
+
         //jbActualizar.setEnabled(flag);
-        jbEliminar.setEnabled(flag);
-        jbGuardar.setEnabled(flag);
+        jbEliminarC.setEnabled(flag);
+        jbGuardarC.setEnabled(flag);
+        jtfIdCompra.setEnabled(flag);
     }
-    
+
     private boolean validarCamposVacios() {
         boolean flag = false;
-        
-       String campo1= jcbProveedores.getSelectedItem().toString();
-       String campo2= jdcFecha.getDateFormatString();
+
+        String campo1 = jcbProveedores.getSelectedItem().toString();
+        String campo2 = jdcFecha.getDateFormatString();
         if (campo1.isEmpty() && campo2.isEmpty()) {
             flag = true;
         }
         return flag;
     }
-    
+
     public void refreshTable() {
         jtTabla.repaint();
     }
 
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbActualizar;
-    private javax.swing.JButton jbBuscar;
-    private javax.swing.JButton jbEliminar;
-    private javax.swing.JButton jbGuardar;
+    private javax.swing.JButton jbBuscarC;
+    private javax.swing.JButton jbEliminarC;
+    private javax.swing.JButton jbEliminarD;
+    private javax.swing.JButton jbGuardarC;
+    private javax.swing.JButton jbModificarC;
+    private javax.swing.JButton jbModificarD;
     private javax.swing.JButton jbNuevo;
     private javax.swing.JButton jbSalir;
+    private javax.swing.JComboBox<Compra> jcbCompras;
     private javax.swing.JComboBox<Proveedor> jcbProveedores;
     private javax.swing.JCheckBox jckbEstado;
     private com.toedter.calendar.JDateChooser jdcFecha;
     private javax.swing.JTable jtTabla;
+    private javax.swing.JTextField jtfIdCompra;
     // End of variables declaration//GEN-END:variables
 }
