@@ -520,7 +520,7 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
                         jbEliminarC.setEnabled(false);
                         Proveedor prov = nuevaCompra.getProveedor();
                         for(int i=0; i==jcbProveedores.getItemCount(); i++){
-                            if(jcbProveedores.getItemAt(i).getRazonSocial()==nuevaCompra.getProveedor().getRazonSocial()){
+                            if(jcbProveedores.getItemAt(i).getRazonSocial().equals(nuevaCompra.getProveedor().getRazonSocial())){
                                 jcbProveedores.setSelectedIndex(i);
                             }
                         }
