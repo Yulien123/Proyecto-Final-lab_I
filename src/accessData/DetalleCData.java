@@ -19,6 +19,7 @@ public class DetalleCData {
 
     private Connection con = null;
     ProductoData prodData;
+    CompraData comData = new CompraData();
 
     public DetalleCData() {
         con = Conexion.getConexion();
@@ -155,4 +156,62 @@ public class DetalleCData {
         return detalleCompras;
     }
 
+//    public List<DetalleCompra> listarProductosMasComprados(Date f1, Date f2) {
+//        List<DetalleCompra> productosMasComprados = new ArrayList<>();
+//        String sql = "SELECT p.idProducto, p.nombreProducto, SUM(dc.cantidad) as totalComprado"
+//                + " FROM detallecompra dc JOIN producto p ON dc.IdProducto = p.idProducto" 
+//                + " JOIN compra c ON dc.idCompra = c.idCompra WHERE c.fecha BETWEEN ? AND ?"
+//                + " GROUP BY p.idProducto ORDER BY totalComprado DESC";
+//
+//        try (PreparedStatement ps = con.prepareStatement(sql)) {
+//            ps.setDate(1, f1);
+//            ps.setDate(2, f2);
+//            ResultSet rs = ps.executeQuery();
+//
+//            while (rs.next()) {
+//                int idProducto = rs.getInt("idProducto");
+//                String nombreProducto = rs.getString("nombreProducto");
+//                int totalComprado = rs.getInt("totalComprado");
+//
+//                DetalleCompra detalleCompra = new DetalleCompra();
+//                productosMasComprados.add(detalleCompra);
+//            }
+//
+//        } catch (SQLException ex) {
+//            JOptionPane.showMessageDialog(null, "Error al obtener los productos más comprados: " + ex.getMessage());
+//        }
+//
+//        return productosMasComprados;
+//    }
+    
+    public List<DetalleCompra> listarDetComEntreFechas(Date f1, Date f2) {
+        String sql = "SELECT * FROM `detallecompra` d JOIN compra c ON (d.idCompra = c.idCompra)"
+                + " AND (c.fecha >= ?) AND (c.fecha <= ?)";
+        List<DetalleCompra> detalleCompras = new ArrayList<>();
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setDate(1, f1);
+            ps.setDate(2, f2);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int idDetalle = rs.getInt("idDetalle");
+                int cantidad = rs.getInt("cantidad");
+                double precioCosto = rs.getDouble("precioCosto");
+                int idCompra = rs.getInt("idCompra");
+                int idProducto = rs.getInt("IdProducto");
+
+                Compra compra = comData.buscarCompraPorId(idCompra);
+                Producto producto = prodData.buscarProductoPorId(idProducto);
+
+                DetalleCompra detalleCompra = new DetalleCompra(idDetalle, cantidad, precioCosto, compra, producto, true);
+                detalleCompras.add(detalleCompra);
+            }
+
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla detallecompra: " + ex.getMessage());
+        }
+        return detalleCompras;
+    }
 }

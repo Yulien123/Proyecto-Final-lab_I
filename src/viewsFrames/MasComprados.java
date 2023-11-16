@@ -1,16 +1,22 @@
 package viewsFrames;
 
 import accessData.CompraData;
+import accessData.Conexion;
 import accessData.DetalleCData;
 import accessData.ProductoData;
 import entity.Compra;
 import entity.DetalleCompra;
 import entity.Producto;
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class MasComprados extends javax.swing.JInternalFrame {
@@ -24,12 +30,12 @@ public class MasComprados extends javax.swing.JInternalFrame {
         this.setTitle("Productos mas comprados");
         compraData = new CompraData();
         modelo = new DefaultTableModel();
-        String ids[]={"Id", "Nombre", "Cantidad"};
+        String ids[] = {"Id", "Nombre", "TotalComprado"};
         modelo.setColumnIdentifiers(ids);
         jTComprados.setModel(modelo);
 
-
     }
+    Connection con = Conexion.getConexion();
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -146,22 +152,40 @@ public class MasComprados extends javax.swing.JInternalFrame {
 
     private void jBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBuscarActionPerformed
 
-        ProductoData pd = new ProductoData();
-        
-        Date fecha1 = new Date(f1.getDate().getTime());
-        Date fecha2 = new Date(f2.getDate().getTime());
-        List<Producto> listaM = new ArrayList<> ();
-        
-        LocalDate f1 = fecha1.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        LocalDate f2 = fecha2.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        listaM = pd.listarComprasEntreFechas(fecha1, fecha2);
+        Date fechaInicio = new Date(f1.getDate().getTime());
+        Date fechaFinal = new Date(f2.getDate().getTime());
+        listarProductosMasComprados(fechaInicio, fechaFinal);
 
-        for(Producto tabla1: listaM){
-            modelo.addRow(new Object[]{tabla1.getIdProdcuto(), tabla1.getNombreProducto(), tabla1.getStock()});
-        }
-        
+
     }//GEN-LAST:event_jBuscarActionPerformed
 
+    public List<DetalleCompra> listarProductosMasComprados(Date f1, Date f2) {
+        List<DetalleCompra> productosMasComprados = new ArrayList<>();
+        String sql = "SELECT p.idProducto, p.nombreProducto, SUM(dc.cantidad) as totalComprado"
+                + " FROM detallecompra dc JOIN producto p ON dc.IdProducto = p.idProducto"
+                + " JOIN compra c ON dc.idCompra = c.idCompra WHERE c.fecha BETWEEN ? AND ?"
+                + " GROUP BY p.idProducto ORDER BY totalComprado DESC";
+
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setDate(1, f1);
+            ps.setDate(2, f2);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int idProducto = rs.getInt("idProducto");
+                String nombreProducto = rs.getString("nombreProducto");
+                int totalComprado = rs.getInt("totalComprado");
+
+                modelo.addRow(new Object[]{idProducto, nombreProducto, totalComprado});
+                
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al obtener los productos más comprados: " + ex.getMessage());
+        }
+
+        return productosMasComprados;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser f1;
