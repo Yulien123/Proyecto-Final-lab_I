@@ -156,32 +156,33 @@ public class DetalleCData {
         return detalleCompras;
     }
 
-    public List<DetalleCompra> listarProductosMasComprados() {
-        List<DetalleCompra> productosMasComprados = new ArrayList<>();
-        String sql = "SELECT p.idProducto, p.nombreProducto, SUM(dc.cantidad) as totalComprado "
-                + "FROM detallecompra dc "
-                + "JOIN producto p ON dc.IdProducto = p.idProducto "
-                + "GROUP BY p.idProducto "
-                + "ORDER BY totalComprado DESC";
-
-        try (PreparedStatement ps = con.prepareStatement(sql)) {
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                int idProducto = rs.getInt("idProducto");
-                String nombreProducto = rs.getString("nombreProducto");
-                int totalComprado = rs.getInt("totalComprado");
-
-                DetalleCompra detalleCompra = new DetalleCompra();
-                productosMasComprados.add(detalleCompra);
-            }
-
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al obtener los productos más comprados: " + ex.getMessage());
-        }
-
-        return productosMasComprados;
-    }
+//    public List<DetalleCompra> listarProductosMasComprados(Date f1, Date f2) {
+//        List<DetalleCompra> productosMasComprados = new ArrayList<>();
+//        String sql = "SELECT p.idProducto, p.nombreProducto, SUM(dc.cantidad) as totalComprado"
+//                + " FROM detallecompra dc JOIN producto p ON dc.IdProducto = p.idProducto" 
+//                + " JOIN compra c ON dc.idCompra = c.idCompra WHERE c.fecha BETWEEN ? AND ?"
+//                + " GROUP BY p.idProducto ORDER BY totalComprado DESC";
+//
+//        try (PreparedStatement ps = con.prepareStatement(sql)) {
+//            ps.setDate(1, f1);
+//            ps.setDate(2, f2);
+//            ResultSet rs = ps.executeQuery();
+//
+//            while (rs.next()) {
+//                int idProducto = rs.getInt("idProducto");
+//                String nombreProducto = rs.getString("nombreProducto");
+//                int totalComprado = rs.getInt("totalComprado");
+//
+//                DetalleCompra detalleCompra = new DetalleCompra();
+//                productosMasComprados.add(detalleCompra);
+//            }
+//
+//        } catch (SQLException ex) {
+//            JOptionPane.showMessageDialog(null, "Error al obtener los productos más comprados: " + ex.getMessage());
+//        }
+//
+//        return productosMasComprados;
+//    }
     
     public List<DetalleCompra> listarDetComEntreFechas(Date f1, Date f2) {
         String sql = "SELECT * FROM `detallecompra` d JOIN compra c ON (d.idCompra = c.idCompra)"

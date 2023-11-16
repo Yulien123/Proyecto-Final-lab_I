@@ -101,7 +101,7 @@ public class Main {
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
         /*COMPRAS*/
  /* */ //------------ INSERTAR COMPRAS ------------   FUNCIONA
-      /*  ProveedorData ad = new ProveedorData();
+        /*  ProveedorData ad = new ProveedorData();
 
         Proveedor prov = ad.buscarProveedorPorId(5);
         Compra com = new Compra(prov, LocalDate.of(2023, 06, 8));
@@ -113,7 +113,6 @@ public class Main {
         Compra com = new Compra(2, prov, LocalDate.of(2022, 06, 22),true);
         CompraData comData = new CompraData();
         comData.modificarCompra(com);*/
-
         // ------------ ELIMINAR COMPRAS ------------     FUNCIONA
         /* CompraData comData = new CompraData();
         Compra com = new Compra();
@@ -251,5 +250,21 @@ public class Main {
             System.out.println("Producto: " + item.getProducto().getNombreProducto());
             System.out.println("");
         };*/
+ /*------------ PRUEBA buscarDetalleP//pRODUCTO ------------   */    //          FUNCIONA  
+        DetalleCData detCompData = new DetalleCData();
+
+        Date fechaInicio = java.sql.Date.valueOf(LocalDate.of(2023, 10, 2));
+        Date fechaFin = java.sql.Date.valueOf(LocalDate.of(2023, 12, 23));
+
+        // Llamar al método listarDetEntreFechas
+        List<DetalleCompra> det = detCompData.listarDetComEntreFechas(fechaInicio, fechaFin);
+
+        for(DetalleCompra item:det) {
+            System.out.println("ID detalle: " + item.getIdDetalle());
+            System.out.println("Cantidad: " + item.getCantidad());
+            System.out.println("Precio: " + item.getPrecioCosto());
+            System.out.println("Producto: " + item.getProducto().getNombreProducto());
+            System.out.println("");
+        };
     }
 }
