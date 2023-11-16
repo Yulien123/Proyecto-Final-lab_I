@@ -251,7 +251,7 @@ public class Main {
             System.out.println("");
         };*/
  /*------------ PRUEBA buscarDetalleP//pRODUCTO ------------   */    //          FUNCIONA  
-        DetalleCData detCompData = new DetalleCData();
+      /*  DetalleCData detCompData = new DetalleCData();
 
         Date fechaInicio = java.sql.Date.valueOf(LocalDate.of(2023, 10, 2));
         Date fechaFin = java.sql.Date.valueOf(LocalDate.of(2023, 12, 23));
@@ -265,6 +265,6 @@ public class Main {
             System.out.println("Precio: " + item.getPrecioCosto());
             System.out.println("Producto: " + item.getProducto().getNombreProducto());
             System.out.println("");
-        };
+        };*/
     }
 }

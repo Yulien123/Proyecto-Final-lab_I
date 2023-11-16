@@ -24,20 +24,19 @@ public class MasComprados extends javax.swing.JInternalFrame {
     private DefaultTableModel modelo;
     private CompraData compraData;
     private DetalleCompra detalleCompra;
-    
 
     public MasComprados() {
         initComponents();
         this.setTitle("Productos mas comprados");
         compraData = new CompraData();
         modelo = new DefaultTableModel();
-        String ids[]={"Id", "Nombre", "TotalComprado"};
+        String ids[] = {"Id", "Nombre", "TotalComprado"};
         modelo.setColumnIdentifiers(ids);
         jTComprados.setModel(modelo);
 
-
     }
     Connection con = Conexion.getConexion();
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -153,17 +152,17 @@ public class MasComprados extends javax.swing.JInternalFrame {
 
     private void jBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBuscarActionPerformed
 
-          Date fechaInicio = new Date(f1.getDate().getTime());
-        Date fechaFinal = new Date(f1.getDate().getTime());
-        listarProductosMasComprados(fechaInicio,fechaFinal);
-        
-        
+        Date fechaInicio = new Date(f1.getDate().getTime());
+        Date fechaFinal = new Date(f2.getDate().getTime());
+        listarProductosMasComprados(fechaInicio, fechaFinal);
+
+
     }//GEN-LAST:event_jBuscarActionPerformed
-    
+
     public List<DetalleCompra> listarProductosMasComprados(Date f1, Date f2) {
         List<DetalleCompra> productosMasComprados = new ArrayList<>();
         String sql = "SELECT p.idProducto, p.nombreProducto, SUM(dc.cantidad) as totalComprado"
-                + " FROM detallecompra dc JOIN producto p ON dc.IdProducto = p.idProducto" 
+                + " FROM detallecompra dc JOIN producto p ON dc.IdProducto = p.idProducto"
                 + " JOIN compra c ON dc.idCompra = c.idCompra WHERE c.fecha BETWEEN ? AND ?"
                 + " GROUP BY p.idProducto ORDER BY totalComprado DESC";
 
@@ -177,8 +176,8 @@ public class MasComprados extends javax.swing.JInternalFrame {
                 String nombreProducto = rs.getString("nombreProducto");
                 int totalComprado = rs.getInt("totalComprado");
 
-                
                 modelo.addRow(new Object[]{idProducto, nombreProducto, totalComprado});
+                
             }
 
         } catch (SQLException ex) {
