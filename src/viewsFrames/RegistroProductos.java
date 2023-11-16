@@ -299,7 +299,7 @@ public class RegistroProductos extends javax.swing.JInternalFrame {
         List<Producto> productos = productoData.listarProductos();
         return productos;
     }
-
+/////////HOLA PRUEBA
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnModificar;
