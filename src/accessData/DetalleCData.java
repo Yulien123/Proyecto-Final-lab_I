@@ -155,4 +155,31 @@ public class DetalleCData {
         return detalleCompras;
     }
 
+    public List<DetalleCompra> listarProductosMasComprados() {
+        List<DetalleCompra> productosMasComprados = new ArrayList<>();
+        String sql = "SELECT p.idProducto, p.nombreProducto, SUM(dc.cantidad) as totalComprado "
+                + "FROM detallecompra dc "
+                + "JOIN producto p ON dc.IdProducto = p.idProducto "
+                + "GROUP BY p.idProducto "
+                + "ORDER BY totalComprado DESC";
+
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int idProducto = rs.getInt("idProducto");
+                String nombreProducto = rs.getString("nombreProducto");
+                int totalComprado = rs.getInt("totalComprado");
+
+                DetalleCompra detalleCompra = new DetalleCompra();
+                productosMasComprados.add(detalleCompra);
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al obtener los productos más comprados: " + ex.getMessage());
+        }
+
+        return productosMasComprados;
+    }
+
 }
