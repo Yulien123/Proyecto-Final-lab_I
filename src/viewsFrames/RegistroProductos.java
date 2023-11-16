@@ -93,6 +93,12 @@ public class RegistroProductos extends javax.swing.JInternalFrame {
             }
         });
 
+        jcbCodProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbCodProductoActionPerformed(evt);
+            }
+        });
+
         jBuscar.setText("Buscar");
         jBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -135,7 +141,7 @@ public class RegistroProductos extends javax.swing.JInternalFrame {
                         .addComponent(btnNuevo)
                         .addGap(89, 89, 89)
                         .addComponent(btnAgregar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
                         .addComponent(btnModificar)))
                 .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -263,6 +269,10 @@ public class RegistroProductos extends javax.swing.JInternalFrame {
         btnAgregar.setEnabled(true);
         vaciarCampos();
     }//GEN-LAST:event_btnNuevoActionPerformed
+
+    private void jcbCodProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbCodProductoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbCodProductoActionPerformed
 
     private void cargarProductos() {
         for (Producto item : listarP) {
