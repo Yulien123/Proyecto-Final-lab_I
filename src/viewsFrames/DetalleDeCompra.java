@@ -511,7 +511,7 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
                 int id = Integer.parseInt(jtfIdCompra.getText());
                 
                 nuevaCompra = compraData.buscarCompraPorId(id);
-
+               
                 if (nuevaCompra != null) {
                     if (nuevaCompra.getIdCompra() == id) {
                         jbModificarC.setVisible(true);
@@ -519,8 +519,11 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
                         jbGuardarC.setEnabled(false);
                         jbEliminarC.setEnabled(false);
                         Proveedor prov = nuevaCompra.getProveedor();
-                        jcbProveedores.setSelectedItem(prov);
-                        
+                        for(int i=0; i==jcbProveedores.getItemCount(); i++){
+                            if(jcbProveedores.getItemAt(i).getRazonSocial()==nuevaCompra.getProveedor().getRazonSocial()){
+                                jcbProveedores.setSelectedIndex(i);
+                            }
+                        }
                         //mostrar en combobox el item que corresponda.
                     }else{
                         JOptionPane.showMessageDialog(this, "No se encontró la Compra");
@@ -647,7 +650,7 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
             jcbCompras.addItem(it);
         }
     }
-
+    
     private void armarCabeceraTabla() {
         // ArrayList<Object> filaCabecera = new ArrayList<>();
         modelo.addColumn("Id");
