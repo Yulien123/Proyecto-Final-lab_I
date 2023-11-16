@@ -434,14 +434,13 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
                 int id = Integer.parseInt(jtfIdCompra.getText());
                 
                 nuevaCompra = compraData.buscarCompraPorId(id);
-
+               
                 if (nuevaCompra != null) {
                     if (nuevaCompra.getIdCompra() == id) {
                         jbModificarC.setVisible(true);
                         enableNuevo(true);
                         jbGuardarC.setEnabled(false);
-                        Proveedor prov = nuevaCompra.getProveedor();
-                        //mostrar en combobox el item que corresponda.
+                       
                     }else{
                         JOptionPane.showMessageDialog(this, "No se encontró la Compra");
                     }
@@ -544,8 +543,17 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
         }
     }
 
+<<<<<<< HEAD
     
 
+=======
+    private void cargarCompras() {
+        for (Compra it : listaC) {
+            jcbCompras.addItem(it);
+        }
+    }
+    
+>>>>>>> 20ea395063bcef4a507c7032a963afc98760071a
     private void armarCabeceraTabla() {
         // ArrayList<Object> filaCabecera = new ArrayList<>();
         modelo.addColumn("Id");
