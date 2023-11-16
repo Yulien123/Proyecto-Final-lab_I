@@ -441,21 +441,21 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
 
     private void jbBuscarCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarCActionPerformed
         Compra encontrado;
-        
+
         if (jtfIdCompra.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Debe ingresar un código de compra para modificar");
             return;
         } else {
-           
+
             try {
                 int id = Integer.parseInt(jtfIdCompra.getText());
                 encontrado = compraData.buscarCompraPorId(id);
-                if(encontrado.getIdCompra() == id){
-                     jbModificarC.setVisible(true);
-                     enableNuevo(true);
-                     jbGuardarC.setEnabled(false);
-                     jbEliminarC.setEnabled(false);
-                     //mostrar en combobox el item que corresponda.
+                if (encontrado.getIdCompra() == id) {
+                    jbModificarC.setVisible(true);
+                    enableNuevo(true);
+                    jbGuardarC.setEnabled(false);
+                    jbEliminarC.setEnabled(false);
+                    //mostrar en combobox el item que corresponda.
                 }
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(this, "Debe ingresar un número");
@@ -470,33 +470,33 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jcbComprasActionPerformed
 
     private void jbModificarCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarCActionPerformed
-        int id = Integer.parseInt(jtfIdCompra.getText());
-        Proveedor prov=null;
+        
+        // Proveedor prov=null;
         if (jtfIdCompra.getText().isEmpty() || jdcFecha.getDateFormatString().isEmpty()) {
             JOptionPane.showMessageDialog(this, "No pueden haber campos vacios");
             return;
         }
+        
         try {
+            int id = Integer.parseInt(jtfIdCompra.getText());
+            String razon = jcbProveedores.getSelectedItem().toString();
             Date fecha = jdcFecha.getDate();
             LocalDate fechaCompra = fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             boolean estado = jckbEstado.isSelected();
-            String razon = jcbProveedores.getSelectedItem().toString();
-            for(Proveedor it: listaP){
-                if(it.getRazonSocial().equals(razon)){
-                    String rs = it.getRazonSocial();
-                    long tel = it.getTelefono();
-                    String dom = it.getDomicilio();
+            
+            
+            for (Proveedor it : listaP) {
+                if (it.getIdProveedor() == id) {
                     int idP = it.getIdProveedor();
-                    boolean est = it.isEstado();
-                    prov = new Proveedor(idP,rs,dom,tel,est);
+                    nuevoProv = provData.buscarProveedorPorId(idP);
                 }
             }
-               
-            nuevaCompra.setProveedor(prov);
-            nuevaCompra.setFecha(fechaCompra);
-            nuevaCompra.setEstado(estado);
+            
+            nuevaCompra = new Compra(id,nuevoProv,fechaCompra,estado); 
+            
             compraData.modificarCompra(nuevaCompra);
             limpiarCampos();
+            jbModificarC.setEnabled(false);
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Debe ingresar un número");
         }
