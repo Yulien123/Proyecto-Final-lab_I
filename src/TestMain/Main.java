@@ -21,12 +21,10 @@ public class Main {
     public static void main(String[] args) {
 
         /*Proveedor*/
-
- //------------ INSERTAR PROVEEDOR ------------ 
+        //------------ INSERTAR PROVEEDOR ------------ 
         /*Proveedor prov = new Proveedor("Sanyo Electric", "Osaka Japon", 123456789, true);
         ProveedorData provData = new ProveedorData();
         provData.guardarProveedor(prov);*/
-         
  /* ------------ MODIFICAR PROVEEDOR ------------  
         Proveedor prov = new Proveedor(1, "LG", "Busan Corea del Sur", 234567891, true);
         ProveedorData provData = new ProveedorData();
@@ -37,15 +35,14 @@ public class Main {
         ProveedorData provData = new ProveedorData();
         provData.eliminarProveedor(1);
          */
- // ------------ BUSCAR PROVEEDOR POR ID ------------      
+        // ------------ BUSCAR PROVEEDOR POR ID ------------      
 //       ProveedorData provData = new ProveedorData();
 //        Proveedor provEncontrado = provData.buscarProveedorPorId(9);
 //        if(provEncontrado != null){
 //            System.out.println("Razon Social: " + provEncontrado.getRazonSocial() + ", Domicilio: " 
 //                    + provEncontrado.getDomicilio() + ", Telefono: " + provEncontrado.getTelefono());
 //        }           
-         
- /*------------ BUSCAR TODOS LOS PROVEEDORES ------------      
+        /*------------ BUSCAR TODOS LOS PROVEEDORES ------------      
         ProveedorData provData = new ProveedorData();
         
         for(Proveedor proveedor:provData.listarProveedor()){
@@ -55,8 +52,7 @@ public class Main {
             System.out.println("Telefono: "+ proveedor.getTelefono()); 
         }
          */
- 
- //////////////////LISTAR PROVEEDORES/////////////////////
+        //////////////////LISTAR PROVEEDORES/////////////////////
 //        ProveedorData ad = new ProveedorData();
 //        
 //        
@@ -68,7 +64,6 @@ public class Main {
 //            System.out.println();
 //        };
 // 
- 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /*PRODUCTO PRUEBAS*/
  /*----Guardar producto----*/ //FUNCIONA
@@ -105,25 +100,22 @@ public class Main {
 //        
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
         /*COMPRAS*/
-      /* */ //------------ INSERTAR COMPRAS ------------   FUNCIONA
-        ProveedorData ad = new ProveedorData();
+ /* */ //------------ INSERTAR COMPRAS ------------   FUNCIONA
+      /*  ProveedorData ad = new ProveedorData();
 
         Proveedor prov = ad.buscarProveedorPorId(5);
         Compra com = new Compra(prov, LocalDate.of(2023, 06, 8));
         CompraData comData = new CompraData();
-        comData.guardarCompra(com);
+        comData.guardarCompra(com);*/
         // ------------ MODIFICAR COMPRAS ------------   FUNCIONA  
         /*  ProveedorData ad = new ProveedorData();                     
         Proveedor prov = ad.buscarProveedorPorId(2);
         Compra com = new Compra(2, prov, LocalDate.of(2022, 06, 22),true);
         CompraData comData = new CompraData();
         comData.modificarCompra(com);*/
-        
-        
-        
-        
+
         // ------------ ELIMINAR COMPRAS ------------     FUNCIONA
-       /* CompraData comData = new CompraData();
+        /* CompraData comData = new CompraData();
         Compra com = new Compra();
         com = comData.buscarCompraPorId(2);
         comData.eliminarCompra(com);*/
@@ -161,7 +153,7 @@ public class Main {
         };
          */
  /*-----------------  Listar CompraPORFechas  ---------------*/ //           FUNCIONA
-       /* CompraData comData = new CompraData();
+        /* CompraData comData = new CompraData();
         ProveedorData ad = new ProveedorData();
 
         // Definir la fecha
@@ -177,7 +169,7 @@ public class Main {
             System.out.println();
         };*/
  /*----------------- Listar CompraEntreFechas  ---------------*/ //          FUNCIONA
-       /*  CompraData comData = new CompraData();
+        /*  CompraData comData = new CompraData();
         ProveedorData ad = new ProveedorData();
 
         // Definir las fechas de inicio y fin para la búsqueda
@@ -197,7 +189,7 @@ public class Main {
         //-------------------------------------------------------------------------------------------------------------
         //                                       DETALLE COMPRA
         //------------ Guardar Detalle ------------   FUNCIONA
-       /* CompraData ad = new CompraData();
+        /* CompraData ad = new CompraData();
         ProductoData asd = new ProductoData();
         Compra compra = ad.buscarCompraPorId(1);
         Producto prod = asd.buscarProductoPorId(2);
@@ -233,7 +225,7 @@ public class Main {
             System.out.println("Fecha de Compra: " + compra.getFecha());
             System.out.println();*/
  /*------------ PRUEBA buscarDetallePorCompra ------------   */    //          FUNCIONA  
-     /*   CompraData comData = new CompraData();
+        /*   CompraData comData = new CompraData();
         Compra com = comData.buscarCompraPorId(1);
         DetalleCData detCompData = new DetalleCData();
         detCompData.buscarDetallePorCompra(com).forEach(item -> {
@@ -243,5 +235,21 @@ public class Main {
             System.out.println("Producto: " + item.getProducto().getNombreProducto());
             System.out.println("");
         });*/
+ /*------------ PRUEBA buscarDetallePorCompra ------------   */    //          FUNCIONA  
+        /*DetalleCData detCompData = new DetalleCData();
+
+        Date fechaInicio = java.sql.Date.valueOf(LocalDate.of(2023, 10, 2));
+        Date fechaFin = java.sql.Date.valueOf(LocalDate.of(2023, 12, 23));
+
+        // Llamar al método listarDetEntreFechas
+        List<DetalleCompra> det = detCompData.listarDetComEntreFechas(fechaInicio, fechaFin);
+
+        for(DetalleCompra item:det) {
+            System.out.println("ID detalle: " + item.getIdDetalle());
+            System.out.println("Cantidad: " + item.getCantidad());
+            System.out.println("Precio: " + item.getPrecioCosto());
+            System.out.println("Producto: " + item.getProducto().getNombreProducto());
+            System.out.println("");
+        };*/
     }
 }

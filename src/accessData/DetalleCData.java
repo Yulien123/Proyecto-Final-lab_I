@@ -19,6 +19,7 @@ public class DetalleCData {
 
     private Connection con = null;
     ProductoData prodData;
+    CompraData comData = new CompraData();
 
     public DetalleCData() {
         con = Conexion.getConexion();
@@ -181,5 +182,35 @@ public class DetalleCData {
 
         return productosMasComprados;
     }
+    
+    public List<DetalleCompra> listarDetComEntreFechas(Date f1, Date f2) {
+        String sql = "SELECT * FROM `detallecompra` d JOIN compra c ON (d.idCompra = c.idCompra)"
+                + " AND (c.fecha >= ?) AND (c.fecha <= ?)";
+        List<DetalleCompra> detalleCompras = new ArrayList<>();
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setDate(1, f1);
+            ps.setDate(2, f2);
+            ResultSet rs = ps.executeQuery();
 
+            while (rs.next()) {
+                int idDetalle = rs.getInt("idDetalle");
+                int cantidad = rs.getInt("cantidad");
+                double precioCosto = rs.getDouble("precioCosto");
+                int idCompra = rs.getInt("idCompra");
+                int idProducto = rs.getInt("IdProducto");
+
+                Compra compra = comData.buscarCompraPorId(idCompra);
+                Producto producto = prodData.buscarProductoPorId(idProducto);
+
+                DetalleCompra detalleCompra = new DetalleCompra(idDetalle, cantidad, precioCosto, compra, producto, true);
+                detalleCompras.add(detalleCompra);
+            }
+
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla detallecompra: " + ex.getMessage());
+        }
+        return detalleCompras;
+    }
 }
