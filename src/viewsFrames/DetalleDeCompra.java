@@ -576,7 +576,7 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
         jtTabla.repaint();
     }
 
-
+ //
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JDesktopPane jDesktopPane1;
