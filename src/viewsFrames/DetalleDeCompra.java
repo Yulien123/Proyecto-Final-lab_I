@@ -484,7 +484,28 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbActualizarActionPerformed
 
     private void jbEliminarDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarDActionPerformed
-        // TODO add your handling code here:
+        if (jtfIdCompra.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Debe ingresar un código de compra para eliminar");
+            return;
+        }
+
+        try {
+            int idCompra = Integer.parseInt(jtfIdCompra.getText());
+            Compra compraEliminar = compraData.buscarCompraPorId(idCompra);
+
+            if (compraEliminar != null) {
+                compraData.eliminarCompra(compraEliminar);
+                JOptionPane.showMessageDialog(this, "Compra eliminada correctamente");
+
+                limpiarCampos();
+                jbEliminarD.setEnabled(false);
+            } else {
+                JOptionPane.showMessageDialog(this, "No se encontró la Compra");
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Debe ingresar un número válido para el ID de compra");
+        }
+
     }//GEN-LAST:event_jbEliminarDActionPerformed
 
     private void jbModificarCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarCActionPerformed
@@ -522,20 +543,18 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbModificarCActionPerformed
 
     private void jbBuscarCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarCActionPerformed
-
         if (jtfIdCompra.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Debe ingresar un código de compra para modificar");
             return;
         } else {
-
             try {
                 int id = Integer.parseInt(jtfIdCompra.getText());
-
                 nuevaCompra = compraData.buscarCompraPorId(id);
 
                 if (nuevaCompra != null) {
                     if (nuevaCompra.getIdCompra() == id) {
                         jbModificarC.setVisible(true);
+                        jbEliminarD.setEnabled(true); 
                         enableNuevo(true);
                         jbGuardarC.setEnabled(false);
                         for (int i = 0; i == jcbProveedores.getItemCount(); i++) {
@@ -545,11 +564,13 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
                         }
                     } else {
                         JOptionPane.showMessageDialog(this, "No se encontró la Compra");
+                        jbEliminarD.setEnabled(false); 
                     }
                 }
 
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(this, "Debe ingresar un número");
+                jbEliminarD.setEnabled(false);
             }
         }
 
@@ -598,11 +619,10 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
                 return;
             }
 
-            for (Proveedor it : listaP) { 
+            for (Proveedor it : listaP) { //busca el proveedor en lista de prov y extrae el ID
                 if (it.getRazonSocial().equals(prov)) {
                     System.out.println("Encontrado");
                     id = it.getIdProveedor();
-                    break; 
                 }
             }
 
@@ -622,7 +642,7 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
         }
         limpiarCampos();
         enableNuevo(false);
-//REALIZAR COMPRA
+        //REALIZAR COMPRA
         enableRealizar(true);
 
         String fechaS = fechaCompra.toString();
@@ -632,7 +652,6 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
 
         jbComprar.setEnabled(true);
         jbTotal.setEnabled(true);
-
     }//GEN-LAST:event_jbGuardarCActionPerformed
 
     private void jcbProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbProductosActionPerformed
