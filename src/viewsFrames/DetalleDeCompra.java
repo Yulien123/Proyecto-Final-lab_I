@@ -369,7 +369,7 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(192, 192, 192)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 317, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(118, 118, 118))
             .addGroup(layout.createSequentialGroup()
@@ -421,10 +421,10 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jbActualizar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jlIdCompra)
                             .addComponent(jlFecha)
@@ -457,7 +457,29 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbSalirActionPerformed
 
     private void jbActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbActualizarActionPerformed
-        
+        List<Compra> listaTodasCompras = compraData.listarCompras();
+        for (Compra compra : listaTodasCompras) {
+            boolean existe = false;
+
+            for (int j = 0; j < modelo.getRowCount(); j++) {
+                if (compra.getIdCompra() == (int) modelo.getValueAt(j, 0)) {
+                    existe = true;
+                    break;
+                }
+            }
+
+            if (!existe) {
+                modelo.addRow(new Object[]{compra.getIdCompra()});
+
+                List<DetalleCompra> listaDetalleCompra = detalleData.listarDetalleCompras();
+                for (DetalleCompra detalleCompra : listaDetalleCompra) {
+                    if (detalleCompra.getCompra().getIdCompra() == compra.getIdCompra()) {
+                        modelo.addRow(new Object[]{detalleCompra.getIdDetalle(), detalleCompra.getCantidad(), detalleCompra.getPrecioCosto(), detalleCompra.getProducto().getNombreProducto(), detalleCompra.getProducto().getPrecioActual()});
+                    }
+                }
+            }
+        }
+
         refreshTable();
     }//GEN-LAST:event_jbActualizarActionPerformed
 
@@ -466,32 +488,36 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbEliminarDActionPerformed
 
     private void jbModificarCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarCActionPerformed
-
-        // Proveedor prov=null;
-        if (jtfIdCompra.getText().isEmpty() || jdcFecha.getDateFormatString().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "No pueden haber campos vacios");
+        if (jtfIdCompra.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese un ID de compra");
             return;
         }
 
         try {
-            int id = Integer.parseInt(jtfIdCompra.getText());
-            String razon = jcbProveedores.getSelectedItem().toString();
-            Date fecha = jdcFecha.getDate();
-            LocalDate fechaCompra = fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            int idCompra = Integer.parseInt(jtfIdCompra.getText());
+            Compra compra = compraData.buscarCompraPorId(idCompra);
 
-            for (Proveedor it : listaP) {
-                if (it.getIdProveedor() == id) {
-                    int idP = it.getIdProveedor();
-                    nuevoProv = provData.buscarProveedorPorId(idP);
+            if (compra != null) {
+                jdcFecha.setDate(Date.from(compra.getFecha().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+
+                for (int i = 0; i < jcbProveedores.getItemCount(); i++) {
+                    if (jcbProveedores.getItemAt(i).getIdProveedor() == compra.getProveedor().getIdProveedor()) {
+                        jcbProveedores.setSelectedIndex(i);
+                        break;
+                    }
                 }
+                enableNuevo(true);
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Compra no encontrada");
+                jdcFecha.setDate(null);
+                jcbProveedores.setSelectedIndex(-1);
+
+                enableNuevo(false);
             }
 
-            nuevaCompra = new Compra(id, nuevoProv, fechaCompra, true);
-
-            compraData.modificarCompra(nuevaCompra);
-            limpiarCampos();
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Debe ingresar un número");
+            JOptionPane.showMessageDialog(this, "Ingrese un número válido para el ID de compra");
         }
     }//GEN-LAST:event_jbModificarCActionPerformed
 
