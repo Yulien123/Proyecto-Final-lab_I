@@ -39,6 +39,7 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
     private Compra nuevaCompra;
     private Proveedor nuevoProv;
     private Producto nuevoProd;
+    private DetalleCompra nuevoDet;
 
     public DetalleDeCompra() {
         initComponents();
@@ -55,7 +56,8 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
         nuevaCompra = null;
         nuevoProv = null;
         nuevoProd = null;
-        
+        nuevoDet = null;
+
         enableRealizar(false);
         jtfIdCompra.setEnabled(true);
         jbBuscarC.setEnabled(true);
@@ -64,7 +66,7 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
         armarCabeceraTabla();
         cargarTabla();
         cargarProveedores();
-       
+
         cargarProductos();
 
     }
@@ -105,6 +107,10 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jsCantidad = new javax.swing.JSpinner();
+        jlIdCompra = new javax.swing.JLabel();
+        jlFecha = new javax.swing.JLabel();
+        jlProveedor = new javax.swing.JLabel();
+        jbTotal = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
@@ -129,6 +135,29 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
         setMinimumSize(new java.awt.Dimension(22, 22));
         setPreferredSize(new java.awt.Dimension(1010, 530));
 
+        jtTabla.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Cantidad", "Precio C", "Compra", "Producto", "Estado"
+            }
+        ));
         jScrollPane1.setViewportView(jtTabla);
         if (jtTabla.getColumnModel().getColumnCount() > 0) {
             jtTabla.getColumnModel().getColumn(0).setHeaderValue("ID");
@@ -190,7 +219,7 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
             }
         });
 
-        jbGuardarC.setText("Guardar");
+        jbGuardarC.setText("Generar");
         jbGuardarC.setEnabled(false);
         jbGuardarC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -268,6 +297,7 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
         );
 
         jbEliminarD.setText("Eliminar Compra");
+        jbEliminarD.setEnabled(false);
         jbEliminarD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbEliminarDActionPerformed(evt);
@@ -275,13 +305,18 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
         });
 
         jlPrecio.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jlPrecio.setText("Precio costo:  $ ");
+        jlPrecio.setText("Total: $ ");
 
         jLabel10.setText("Poducto:");
 
         jcbProductos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcbProductosActionPerformed(evt);
+            }
+        });
+        jcbProductos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jcbProductosKeyReleased(evt);
             }
         });
 
@@ -301,46 +336,78 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("GENERAR CÓDIGO DE  COMPRA");
 
+        jsCantidad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jsCantidadKeyReleased(evt);
+            }
+        });
+
+        jlIdCompra.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jlIdCompra.setForeground(new java.awt.Color(255, 255, 255));
+        jlIdCompra.setText("N° Compra: ");
+
+        jlFecha.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jlFecha.setForeground(new java.awt.Color(255, 255, 255));
+        jlFecha.setText("Fecha: ");
+
+        jlProveedor.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jlProveedor.setForeground(new java.awt.Color(255, 255, 255));
+        jlProveedor.setText("Proveedor: ");
+
+        jbTotal.setText("Calcular Precio");
+        jbTotal.setEnabled(false);
+        jbTotal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbTotalActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(192, 192, 192)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 317, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(118, 118, 118))
+            .addGroup(layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jbComprar)
-                        .addGap(18, 18, 18)
-                        .addComponent(jbEliminarD)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jbSalir)
-                        .addGap(28, 28, 28))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jlPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel10)
-                                            .addComponent(jLabel8))
-                                        .addGap(82, 82, 82)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jcbProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jsCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                        .addGap(12, 12, 12)
+                                    .addComponent(jLabel10)
+                                    .addComponent(jLabel8))
+                                .addGap(82, 82, 82)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jcbProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jsCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jlFecha)
+                                .addGap(18, 18, 18)
+                                .addComponent(jlProveedor)
+                                .addGap(18, 18, 18)
+                                .addComponent(jlIdCompra))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jbComprar)
+                                .addGap(43, 43, 43)
+                                .addComponent(jbEliminarD)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jbActualizar)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(16, Short.MAX_VALUE))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(192, 192, 192)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(118, 118, 118))
+                            .addComponent(jbSalir, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jbActualizar)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(20, 20, 20))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jbTotal)
+                        .addGap(18, 18, 18)
+                        .addComponent(jlPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -354,9 +421,14 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jbActualizar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jlIdCompra)
+                            .addComponent(jlFecha)
+                            .addComponent(jlProveedor))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
@@ -365,14 +437,16 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jcbProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel10))))
-                .addGap(18, 29, Short.MAX_VALUE)
-                .addComponent(jlPrecio)
                 .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbTotal)
+                    .addComponent(jlPrecio))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbComprar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbEliminarD)
                     .addComponent(jbSalir))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addGap(9, 9, 9))
         );
 
         pack();
@@ -383,8 +457,8 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbSalirActionPerformed
 
     private void jbActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbActualizarActionPerformed
-        borrarFilaTabla();
-        cargarTabla();
+        
+        refreshTable();
     }//GEN-LAST:event_jbActualizarActionPerformed
 
     private void jbEliminarDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarDActionPerformed
@@ -416,14 +490,12 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
 
             compraData.modificarCompra(nuevaCompra);
             limpiarCampos();
-            jbModificarC.setEnabled(false);
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Debe ingresar un número");
         }
     }//GEN-LAST:event_jbModificarCActionPerformed
 
     private void jbBuscarCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarCActionPerformed
-
 
         if (jtfIdCompra.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Debe ingresar un código de compra para modificar");
@@ -432,16 +504,20 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
 
             try {
                 int id = Integer.parseInt(jtfIdCompra.getText());
-                
+
                 nuevaCompra = compraData.buscarCompraPorId(id);
-               
+
                 if (nuevaCompra != null) {
                     if (nuevaCompra.getIdCompra() == id) {
                         jbModificarC.setVisible(true);
                         enableNuevo(true);
                         jbGuardarC.setEnabled(false);
-                       
-                    }else{
+                        for (int i = 0; i == jcbProveedores.getItemCount(); i++) {
+                            if (jcbProveedores.getItemAt(i).getRazonSocial() == nuevaCompra.getProveedor().getRazonSocial()) {
+                                jcbProveedores.setSelectedIndex(i);
+                            }
+                        }
+                    } else {
                         JOptionPane.showMessageDialog(this, "No se encontró la Compra");
                     }
                 }
@@ -483,11 +559,13 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
     private void jbGuardarCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarCActionPerformed
         //GUARDAR COMPRA
         int id = 0;
-
+        LocalDate fechaCompra;
+        Date fecha;
+        String prov;
         try {
-            String prov = jcbProveedores.getSelectedItem().toString();
-            Date fecha = jdcFecha.getDate();
-            LocalDate fechaCompra = fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            prov = jcbProveedores.getSelectedItem().toString();
+            fecha = jdcFecha.getDate();
+            fechaCompra = fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
             if (prov.isEmpty() || fecha.toString().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "No debe haber campos vacíos");
@@ -519,17 +597,82 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
         enableNuevo(false);
         //REALIZAR COMPRA
         enableRealizar(true);
-        jcbProductos.setSelectedItem(nuevaCompra);
-        
+
+        String fechaS = fechaCompra.toString();
+        jlFecha.setText("Fecha: " + fechaS);
+        jlProveedor.setText("Proveedor: " + prov);
+        jlIdCompra.setText("N° Compra: " + id);
+
+        jbComprar.setEnabled(true);
+        jbTotal.setEnabled(true);
     }//GEN-LAST:event_jbGuardarCActionPerformed
 
     private void jcbProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbProductosActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jcbProductosActionPerformed
 
     private void jbComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbComprarActionPerformed
-        // TODO add your handling code here:
+        nuevoProd = new Producto();
+        double precioC;
+
+        if (jsCantidad.equals(0)) {
+            JOptionPane.showMessageDialog(this, "No debe haber campos vacíos");
+            return;
+        } else {
+            try {
+                int cant = Integer.parseInt(jsCantidad.getValue().toString());
+                String nombre = jcbProductos.getSelectedItem().toString();
+                for (Producto it : listaProd) {
+                    if (it.getNombreProducto().equals(nombre)) {
+                        nuevoProd.setIdProdcuto(it.getIdProdcuto());
+                        nuevoProd.setNombreProducto(it.getNombreProducto());
+                        nuevoProd.setDescripcion(it.getDescripcion());
+                        nuevoProd.setPrecioActual(it.getPrecioActual());
+                        nuevoProd.setStock(it.getStock());
+                        nuevoProd.setEstado(it.isEstado());
+                    }
+                }
+                precioC = nuevoProd.getPrecioActual();
+
+                //int cantidad, double precioCosto, Compra compra, Producto producto
+                nuevoDet = new DetalleCompra(cant, precioC, nuevaCompra, nuevoProd);
+                detalleData.guardarDetalleCompra(nuevoDet);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Error al ingresar los datos");
+                return;
+            }
+            enableRealizar(false);
+            jbComprar.setEnabled(false);
+            enableNuevo(true);
+            limpiarCampos();
+        }
     }//GEN-LAST:event_jbComprarActionPerformed
+
+    private void jsCantidadKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jsCantidadKeyReleased
+
+    }//GEN-LAST:event_jsCantidadKeyReleased
+
+    private void jbTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbTotalActionPerformed
+
+        if (!jsCantidad.getValue().equals(0) && jcbProductos.getSelectedIndex() > -1) {
+            double precio = 0;
+            for (Producto it : listaProd) {
+                if (it.getNombreProducto().equals(jcbProductos.getSelectedItem().toString())) {
+                    precio = it.getPrecioActual();
+                    System.out.println(precio);
+                }
+            }
+            int cant = Integer.parseInt(jsCantidad.getValue().toString());
+            double total = precio * cant;
+            System.out.println(total);
+            jlPrecio.setText("Total: $ " + String.valueOf(total));
+        }
+
+    }//GEN-LAST:event_jbTotalActionPerformed
+
+    private void jcbProductosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbProductosKeyReleased
+
+    }//GEN-LAST:event_jcbProductosKeyReleased
 
     private void cargarProveedores() {
         for (Proveedor item : listaP) {
@@ -538,22 +681,11 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
     }
 
     private void cargarProductos() {
-        for (Proveedor item : listaP) {
-            jcbProveedores.addItem(item);
+        for (Producto item : listaProd) {
+            jcbProductos.addItem(item);
         }
     }
 
-<<<<<<< HEAD
-    
-
-=======
-    private void cargarCompras() {
-        for (Compra it : listaC) {
-            jcbCompras.addItem(it);
-        }
-    }
-    
->>>>>>> 20ea395063bcef4a507c7032a963afc98760071a
     private void armarCabeceraTabla() {
         // ArrayList<Object> filaCabecera = new ArrayList<>();
         modelo.addColumn("Id");
@@ -569,7 +701,7 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
         borrarFilaTabla();
         for (DetalleCompra it : listaD) {
             modelo.addRow(new Object[]{it.getIdDetalle(), it.getCantidad(),
-                it.getPrecioCosto(), it.getCompra().toString(), it.getProducto().getNombreProducto(), it.isEstado()});
+                it.getPrecioCosto(), it.getCompra(), it.getProducto(), it.isEstado()});
         }
     }
 
@@ -581,29 +713,31 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
     }
 
     private void limpiarCampos() {
-        jcbProveedores.setSelectedIndex(0);
+        jcbProveedores.setSelectedIndex(-1);
         jdcFecha.setDate(null);
-
         jtfIdCompra.setText("");
+        jsCantidad.setValue(0);
+        jcbProductos.setSelectedIndex(-1);
         // prodEncontrado = null;
+        jlFecha.setText("Fecha: ");
+        jlProveedor.setText("Proveedor: ");
+        jlIdCompra.setText("Id Compra: ");
     }
 
     private void enableNuevo(boolean flag) {
         jcbProveedores.setEnabled(flag);
         jdcFecha.setEnabled(flag);
         //jbActualizar.setEnabled(flag);
-
         jbGuardarC.setEnabled(flag);
         jtfIdCompra.setEnabled(flag);
     }
 
     private void enableRealizar(boolean flag) {
-     
+
         jsCantidad.setEnabled(flag);
-        
         jcbProductos.setEnabled(flag);
     }
-    
+
     private boolean validarCamposVacios() {
         boolean flag = false;
 
@@ -641,10 +775,14 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbModificarC;
     private javax.swing.JButton jbNuevo;
     private javax.swing.JButton jbSalir;
+    private javax.swing.JButton jbTotal;
     private javax.swing.JComboBox<Producto> jcbProductos;
     private javax.swing.JComboBox<Proveedor> jcbProveedores;
     private com.toedter.calendar.JDateChooser jdcFecha;
+    private javax.swing.JLabel jlFecha;
+    private javax.swing.JLabel jlIdCompra;
     private javax.swing.JLabel jlPrecio;
+    private javax.swing.JLabel jlProveedor;
     private javax.swing.JSpinner jsCantidad;
     private javax.swing.JTable jtTabla;
     private javax.swing.JTextField jtfIdCompra;
