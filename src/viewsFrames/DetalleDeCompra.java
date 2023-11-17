@@ -598,10 +598,11 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
                 return;
             }
 
-            for (Proveedor it : listaP) { //busca el proveedor en lista de prov y extrae el ID
+            for (Proveedor it : listaP) { 
                 if (it.getRazonSocial().equals(prov)) {
                     System.out.println("Encontrado");
                     id = it.getIdProveedor();
+                    break; 
                 }
             }
 
@@ -621,7 +622,7 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
         }
         limpiarCampos();
         enableNuevo(false);
-        //REALIZAR COMPRA
+//REALIZAR COMPRA
         enableRealizar(true);
 
         String fechaS = fechaCompra.toString();
@@ -631,6 +632,7 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
 
         jbComprar.setEnabled(true);
         jbTotal.setEnabled(true);
+
     }//GEN-LAST:event_jbGuardarCActionPerformed
 
     private void jcbProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbProductosActionPerformed
