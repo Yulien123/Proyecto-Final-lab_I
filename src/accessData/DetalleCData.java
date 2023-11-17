@@ -142,7 +142,7 @@ public class DetalleCData {
                 int idCompra = rs.getInt("idCompra");
                 int idProducto = rs.getInt("IdProducto");
 
-                Compra compra = new Compra();
+                Compra compra = comData.buscarCompraPorId(idCompra);
                 Producto producto = prodData.buscarProductoPorId(idProducto);
 
                 DetalleCompra detalleCompra = new DetalleCompra(idDetalle, cantidad, precioCosto, compra, producto, true);

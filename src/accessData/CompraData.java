@@ -82,7 +82,7 @@ public class CompraData {
     }
 
     public Compra buscarCompraPorId(int idCompra) {
-        String sql = "SELECT idCompra, idProveedor, fecha FROM compra WHERE idCompra = ? AND estado = 1";
+        String sql = "SELECT idCompra, idProveedor, fecha FROM compra WHERE idCompra = ?";
         Compra compra = null;
         try {
             PreparedStatement ps = con.prepareStatement(sql);

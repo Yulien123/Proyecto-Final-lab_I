@@ -307,7 +307,7 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
         jlPrecio.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jlPrecio.setText("Total: $ ");
 
-        jLabel10.setText("Poducto:");
+        jLabel10.setText("Producto:");
 
         jcbProductos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -457,30 +457,12 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbSalirActionPerformed
 
     private void jbActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbActualizarActionPerformed
-        List<Compra> listaTodasCompras = compraData.listarCompras();
-        for (Compra compra : listaTodasCompras) {
-            boolean existe = false;
-
-            for (int j = 0; j < modelo.getRowCount(); j++) {
-                if (compra.getIdCompra() == (int) modelo.getValueAt(j, 0)) {
-                    existe = true;
-                    break;
-                }
-            }
-
-            if (!existe) {
-                modelo.addRow(new Object[]{compra.getIdCompra()});
-
-                List<DetalleCompra> listaDetalleCompra = detalleData.listarDetalleCompras();
-                for (DetalleCompra detalleCompra : listaDetalleCompra) {
-                    if (detalleCompra.getCompra().getIdCompra() == compra.getIdCompra()) {
-                        modelo.addRow(new Object[]{detalleCompra.getIdDetalle(), detalleCompra.getCantidad(), detalleCompra.getPrecioCosto(), detalleCompra.getProducto().getNombreProducto(), detalleCompra.getProducto().getPrecioActual()});
-                    }
-                }
-            }
+        borrarFilaTabla();
+        List<DetalleCompra> listaDetalleCompra = detalleData.listarDetalleCompras();
+        for (DetalleCompra detalleCompra : listaDetalleCompra) {
+            modelo.addRow(new Object[]{detalleCompra.getIdDetalle(), detalleCompra.getCantidad(), detalleCompra.getPrecioCosto(), detalleCompra.getCompra().getIdCompra(),detalleCompra.getProducto().getNombreProducto(), detalleCompra.getProducto().getPrecioActual()});
         }
-
-        refreshTable();
+    refreshTable();
     }//GEN-LAST:event_jbActualizarActionPerformed
 
     private void jbEliminarDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarDActionPerformed
@@ -740,7 +722,6 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
         modelo.addColumn("Precio C");
         modelo.addColumn("Compra");
         modelo.addColumn("Poducto");
-        modelo.addColumn("Estado");
         jtTabla.setModel(modelo);
     }
 
@@ -748,7 +729,7 @@ public class DetalleDeCompra extends javax.swing.JInternalFrame {
         borrarFilaTabla();
         for (DetalleCompra it : listaD) {
             modelo.addRow(new Object[]{it.getIdDetalle(), it.getCantidad(),
-                it.getPrecioCosto(), it.getCompra(), it.getProducto(), it.isEstado()});
+                it.getPrecioCosto(), it.getCompra().getIdCompra(), it.getProducto()});
         }
     }
 
