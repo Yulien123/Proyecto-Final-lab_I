@@ -185,6 +185,17 @@ public class Main {
             System.out.println("Fecha de Compra: " + compra.getFecha());
             System.out.println();
         };*/
+        
+        ///*----------------- Listar ultima compra  ---------------*/  FUNCIONA
+//         CompraData comData = new CompraData();
+//         ProveedorData ad = new ProveedorData();
+//         
+//         Compra compra = comData.buscarUltimaCompra();
+//         System.out.println("ID de Compra: " + compra.getIdCompra());
+//            System.out.println("Nombre Proveedor: " + ad.buscarProveedorPorId(compra.getProveedor().getIdProveedor()).getRazonSocial());
+//            System.out.println("Fecha de Compra: " + compra.getFecha());
+//        
+        
         //-------------------------------------------------------------------------------------------------------------
         //                                       DETALLE COMPRA
         //------------ Guardar Detalle ------------   FUNCIONA

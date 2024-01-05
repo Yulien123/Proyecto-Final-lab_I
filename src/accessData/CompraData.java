@@ -106,6 +106,32 @@ public class CompraData {
         }
         return compra;
     }
+    
+    public Compra buscarUltimaCompra() {
+        String sql = "SELECT idCompra, idProveedor, fecha FROM compra WHERE estado=1 ORDER BY idCompra DESC LIMIT 1";
+        //SELECT * FROM `compra` WHERE estado=1 ORDER BY idCompra DESC LIMIT 1
+        Compra compra = null;
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                compra = new Compra();
+                compra.setIdCompra(rs.getInt("idCompra"));
+                compra.setProveedor(new Proveedor(rs.getInt("idProveedor")));
+                compra.setFecha(rs.getDate("fecha").toLocalDate());
+                compra.setEstado(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "No existe la compra con esa id.");
+            }
+
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla compra.");
+        }
+        return compra;
+    }
 
     public List<Compra> ObtenerComprasPorProveedor(Proveedor proveedor) {
         String sql = "SELECT idCompra, fecha FROM compra WHERE idProveedor = ?";
@@ -184,7 +210,6 @@ public class CompraData {
         }
         return compras;
     }
-
     
     public List<Compra> listarComprasEntreFechas(Date f1, Date f2) {
 
